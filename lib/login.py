@@ -26,10 +26,11 @@ class Login:
         Service.send_input(vcode,code)
     #取消勾选记住密码
     def click_remember(self):
-        self.driver.find_element_by_css_selector('input.col-md-6').click()
+        self.driver.find_element_by_css_selector('div.row:nth-child(4) > input:nth-child(1)').click()
     #点击登录
     def click_login(self):
         self.driver.find_element_by_css_selector('.btn').click()
+
 
     #登录成功点击注销
     def click_logout(self):
@@ -42,6 +43,7 @@ class Login:
         self.input_vcode(code)
         self.click_remember()
         self.click_login()
+
 
 
 if __name__ == '__main__':

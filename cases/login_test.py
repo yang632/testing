@@ -22,7 +22,7 @@ class LoginTest(unittest.TestCase):
         pass
     def setUp(self):
         self.driver=Service.get_driver()
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(15)
         from lib.login import Login
         self.login=Login(self.driver)
     def tearDown(self):
@@ -35,10 +35,10 @@ class LoginTest(unittest.TestCase):
     @parameterized.expand(login_info)
     def test_login(self,uname,psword,code,expect):
         self.login.do_login(uname,psword,code)
-
+        # time.sleep(25)
         from selenium.webdriver.common.by import By
         #如果存在注销链接
-        if Service.is_element_present(self.driver,By.LINK_TEXT,"注销"):
+        if Service.is_element_present(self.driver,By.PARTIAL_LINK_TEXT,"修改密码"):
             actual="login-success"
             #退出系统
             time.sleep(3)

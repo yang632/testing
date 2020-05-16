@@ -5,8 +5,8 @@
 # Software: PyCharm
 # Time    : 2020/5/16 15:50
 
-class Test:
-    from selenium import webdriver
-    driver=webdriver.Firefox()
-    # driver.find_element_by_css_selector()
-    # driver.implicitly_wait()
+# class Test:
+#     from selenium import webdriver
+#     driver=webdriver.Firefox()
+#     # driver.find_element_by_css_selector()
+#     # driver.implicitly_wait()

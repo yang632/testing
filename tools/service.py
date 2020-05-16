@@ -22,7 +22,7 @@ class Service:
         url=f"{content['PROTOCOL']}://{content['HOSTNAME']}:{content['PORT']}/{content['PROGRAM']}/"
         # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
         driver.get(url)
-        time.sleep(3)
+
 
     #输入内容
     @classmethod
