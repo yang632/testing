@@ -27,6 +27,17 @@ class Service:
         ele.clear()
         ele.send_keys(value)
 
+    # 判断某个元素是否存在
+    @classmethod
+    def is_element_present(cls, driver, how, what):
+        from selenium.common.exceptions import NoSuchElementException
+        try:
+            driver.find_element(by=how, value=what)
+        except NoSuchElementException as e:
+            return False
+        return True
+
+
 
 if __name__ == '__main__':
     driver =Service.get_driver()

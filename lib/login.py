@@ -8,7 +8,6 @@ from tools.service import Service
 
 
 class Login:
-
     def __init__(self,driver):
         self.driver=driver
     #输入用户名
@@ -31,7 +30,13 @@ class Login:
     #点击登录
     def click_login(self):
         self.driver.find_element_by_css_selector('.btn').click()
-    #点击登录
+
+    #登录成功点击注销
+    def click_logout(self):
+        self.driver.find_element_by_link_text('注销').click()
+
+
+    #执行登录动作
     def do_login(self,uname,psword,code):
         Service.open_startpage(self.driver)
         self.input_uasername(uname)
@@ -42,7 +47,8 @@ class Login:
 
 
 if __name__ == '__main__':
-    driver=Service.get_driver()
-    driver.implicitly_wait(10)
-    lo=Login(driver)
-    lo.do_login("WNCD000","woniu123","0000")
+    pass
+    # driver=Service.get_driver()
+    # driver.implicitly_wait(10)
+    # lo=Login(driver)
+    # lo.do_login("WNCD000","woniu123","0000")

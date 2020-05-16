@@ -37,7 +37,7 @@ class Utility:
     @classmethod
     def tran_tuple(cls,conf):
         contents=Utility.get_testinfo(conf)
-        print(contents)
+        # print(contents)
         list=[]
         for content in contents:
             tup=tuple(content.values())
