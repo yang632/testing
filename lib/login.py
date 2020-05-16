@@ -5,8 +5,6 @@
 # Software: PyCharm
 # Time    : 2020/5/16 17:21
 from tools.service import Service
-
-
 class Login:
     def __init__(self,driver):
         self.driver=driver
@@ -34,7 +32,7 @@ class Login:
 
     #登录成功点击注销
     def click_logout(self):
-        self.driver.find_element_by_link_text('注销').click()
+        self.driver.find_element_by_partial_link_text('注销').click()
     #执行登录动作
     def do_login(self,uname,psword,code):
         Service.open_startpage(self.driver)
