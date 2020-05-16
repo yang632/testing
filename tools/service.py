@@ -4,6 +4,7 @@
 # Email   : yang@163.com
 # Software: PyCharm
 # Time    : 2020/5/16 16:54
+import time
 from tools.utility import Utility
 class Service:
     #获取driver
@@ -19,7 +20,10 @@ class Service:
         content=Utility.get_json('../conf/yang/base.conf')
         # print(content)
         url=f"{content['PROTOCOL']}://{content['HOSTNAME']}:{content['PORT']}/{content['PROGRAM']}/"
+        # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
         driver.get(url)
+        time.sleep(3)
+
     #输入内容
     @classmethod
     def send_input(cls, ele, value):

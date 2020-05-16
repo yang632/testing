@@ -17,16 +17,16 @@ class LoginTest(unittest.TestCase):
     content=Utility.get_json('../conf/yang/testinfo.conf')
     login_info=Utility.tran_tuple(content[0])
     print(login_info)
-
     @classmethod
     def setUpClass(cls):
         pass
     def setUp(self):
         self.driver=Service.get_driver()
+        self.driver.implicitly_wait(10)
         from lib.login import Login
         self.login=Login(self.driver)
     def tearDown(self):
-        pass
+        self.driver.close()
     @classmethod
     def tearDownClass(cls):
         pass

@@ -34,8 +34,6 @@ class Login:
     #登录成功点击注销
     def click_logout(self):
         self.driver.find_element_by_link_text('注销').click()
-
-
     #执行登录动作
     def do_login(self,uname,psword,code):
         Service.open_startpage(self.driver)
