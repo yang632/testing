@@ -8,10 +8,7 @@ import time
 import unittest
 from tools.service import Service
 from parameterized import parameterized
-
 from tools.utility import Utility
-
-
 class LoginTest(unittest.TestCase):
     #获取测试数据
     content=Utility.get_json('../conf/yang/testinfo.conf')
@@ -30,7 +27,6 @@ class LoginTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         pass
-
     #测试登录
     @parameterized.expand(login_info)
     def test_login(self,uname,psword,code,expect):
@@ -38,14 +34,13 @@ class LoginTest(unittest.TestCase):
         # time.sleep(25)
         from selenium.webdriver.common.by import By
         #如果存在注销链接
+        time.sleep(3)
         if Service.is_element_present(self.driver,By.PARTIAL_LINK_TEXT,"修改密码"):
             actual="login-success"
             #退出系统
-            time.sleep(3)
             self.login.click_logout()
         else:
             actual="login-fail"
-
         self.assertEqual(actual,expect)
 if __name__ == '__main__':
     unittest.main(verbosity=2)
