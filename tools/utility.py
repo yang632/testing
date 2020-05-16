@@ -123,9 +123,10 @@ class Utility:
 
 
 if __name__ == '__main__':
-    s=Utility.get_json("../conf/yang/testinfo.conf")
-    print(s[0])
-    t=Utility.get_testinfo(s[0])
-    # print(t)
-    y=Utility.tran_tuple(s[0])
-    print(y)
+    pass
+    # s=Utility.get_json("../conf/yang/testinfo.conf")
+    # print(s[0])
+    # t=Utility.get_testinfo(s[0])
+    # # print(t)
+    # y=Utility.tran_tuple(s[0])
+    # print(y)
