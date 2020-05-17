@@ -12,10 +12,12 @@ from tools.service import Service
 class TrainingResources:
     def __init__(self,driver):
         self.driver=driver
-
         #点击资源管理,点击培训资源
         self.driver.find_element_by_partial_link_text("资源管理").click()
         self.driver.find_element_by_partial_link_text("培训资源").click()
+
+
+
     #点击资源新增按钮
     def click_add_button(self):
         self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/div/div/button[1]').click()
