@@ -26,16 +26,15 @@ class Login:
         Service.send_input(vcode,code)
     #取消勾选记住密码
     def click_remember(self):
-        self.driver.find_element_by_css_selector('input.col-md-6').click()
+        self.driver.find_element_by_css_selector('div.row:nth-child(4) > input:nth-child(1)').click()
     #点击登录
     def click_login(self):
         self.driver.find_element_by_css_selector('.btn').click()
 
+
     #登录成功点击注销
     def click_logout(self):
-        self.driver.find_element_by_link_text('注销').click()
-
-
+        self.driver.find_element_by_partial_link_text('注销').click()
     #执行登录动作
     def do_login(self,uname,psword,code):
         Service.open_startpage(self.driver)
@@ -48,7 +47,8 @@ class Login:
 
 if __name__ == '__main__':
     pass
-    # driver=Service.get_driver()
+    # from selenium import webdriver
+    # driver=webdriver.Edge()
     # driver.implicitly_wait(10)
     # lo=Login(driver)
     # lo.do_login("WNCD000","woniu123","0000")
