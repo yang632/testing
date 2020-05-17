@@ -48,22 +48,33 @@ class Service:
         driver.find_element_by_partial_link_text(menu_name).click()
 
 
-    #登录执行
+    #登录执行,进行解密
     @classmethod
-    def ignor_login(cls,driver):
+    def ignor_login_decrypt(cls,driver):
         cls.open_startpage(driver)
         from lib.login import Login
-        Login(driver).do_login("WNCD000","woniu123","0000")
-    # def ignor_login(cls,driver):
-    #     cls.open_startpage(driver)
-    #     contents=Utility.get_json("../conf/yang/base.conf")
-    #     print(contents)
-    #     #添加cookie
-    #     driver.add_cookie({'name':'userName','value':contents['USERNAME']})
-    #     driver.add_cookie({'name': 'userPass', 'value': contents['USERPASS']})
-    #     driver.add_cookie({'name': 'checkcode', 'value': contents['CKECKCODE']})
-    #     # driver.add_cookie({'name': 'remember', 'value': contents['REMEMBER']})
-    #     cls.open_startpage(driver)
+        contents = Utility.get_json('..\\conf\\yang\\base.conf')
+        #执行登录
+        Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'])
+        time.sleep(2)
+        #点击解密按钮
+        driver.find_element_by_id('btn-decrypt').click()
+        # 输入密码
+        two_pass = driver.find_element_by_css_selector('div.modal-body:nth-child(2) > input:nth-child(1)')
+        cls.send_input(two_pass, contents['TWOPASS'])
+        # 点击确定
+        driver.find_element_by_css_selector('#secondPass-modal > div:nth-child(1) > \
+                div:nth-child(1) > div:nth-child(3) > button:nth-child(1)').click()
+
+
+
+
+
+
+
+
+
+
 
 
 
