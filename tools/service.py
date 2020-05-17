@@ -5,13 +5,16 @@
 # Software: PyCharm
 # Time    : 2020/5/16 16:54
 import time
+
+from lib.login import Login
 from tools.utility import Utility
 class Service:
     #获取driver
     @classmethod
-    def get_driver(cls):
+    def get_driver(cls,path):
         from selenium import webdriver
-        content=Utility.get_json('../conf/yang/base.conf')
+        content=Utility.get_json(path)
+        # print(content)
         return getattr(webdriver,content["BROWSER"])()
 
     #打开首页
@@ -52,9 +55,9 @@ class Service:
     @classmethod
     def ignor_login_decrypt(cls,driver):
         cls.open_startpage(driver)
-        from lib.login import Login
-        contents = Utility.get_json('..\\conf\\yang\\base.conf')
+        contents = Utility.get_json('../conf/yang/base.conf')
         #执行登录
+
         Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'])
         time.sleep(2)
         #点击解密按钮
@@ -87,5 +90,7 @@ class Service:
 
 
 if __name__ == '__main__':
-    driver =Service.get_driver()
-    Service.ignor_login(driver)
+    pass
+    # driver =Service.get_driver('../conf/yang/base.conf')
+    # Service.open_startpage(driver)
+    # # Service.ignor_login(driver)
