@@ -42,7 +42,32 @@ class Service:
         return True
 
 
+    #打开菜单界面
+    @classmethod
+    def open_menu(cls,driver,menu_name):
+        driver.find_element_by_partial_link_text(menu_name).click()
+
+
+    #登录执行
+    @classmethod
+    def ignor_login(cls,driver):
+        cls.open_startpage(driver)
+        from lib.login import Login
+        Login(driver).do_login("WNCD000","woniu123","0000")
+    # def ignor_login(cls,driver):
+    #     cls.open_startpage(driver)
+    #     contents=Utility.get_json("../conf/yang/base.conf")
+    #     print(contents)
+    #     #添加cookie
+    #     driver.add_cookie({'name':'userName','value':contents['USERNAME']})
+    #     driver.add_cookie({'name': 'userPass', 'value': contents['USERPASS']})
+    #     driver.add_cookie({'name': 'checkcode', 'value': contents['CKECKCODE']})
+    #     # driver.add_cookie({'name': 'remember', 'value': contents['REMEMBER']})
+    #     cls.open_startpage(driver)
+
+
+
 
 if __name__ == '__main__':
     driver =Service.get_driver()
-    Service.open_startpage(driver)
+    Service.ignor_login(driver)

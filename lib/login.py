@@ -43,10 +43,8 @@ class Login:
         self.click_login()
 
 
-
 if __name__ == '__main__':
     pass
-
     # driver.implicitly_wait(10)
     # lo=Login(driver)
     # lo.do_login("WNCD000","woniu123","0000")
