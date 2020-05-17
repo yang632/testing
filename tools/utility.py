@@ -119,8 +119,21 @@ class Utility:
         driver.execute_script('document.getElementById("%s").readOnly=false;' % (id))
         ele.send_keys(date)
 
+    # 截图操作
+    @classmethod
+    def get_png(cls, driver, path):
+        import time
+        time.sleep(2)
+        driver.get_screenshot_as_file(path)
 
-
+    # 出现缺陷或错误后的截图方法
+    # '2020-03-23_15-17-30'
+    @classmethod
+    def get_error_png(cls, driver):
+        import time
+        ctime = time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime())
+        screenshot_path = '..\\screenshot\\fail%s.png' % (ctime)
+        cls.get_png(driver, screenshot_path)
 
 if __name__ == '__main__':
     pass
