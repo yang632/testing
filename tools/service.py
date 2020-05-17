@@ -11,9 +11,9 @@ from tools.utility import Utility
 class Service:
     #获取driver
     @classmethod
-    def get_driver(cls,path):
+    def get_driver(cls):
         from selenium import webdriver
-        content=Utility.get_json(path)
+        content=Utility.get_json('../conf/yang/base.conf')
         # print(content)
         return getattr(webdriver,content["BROWSER"])()
 
@@ -82,6 +82,11 @@ class Service:
         from selenium.webdriver.support.select import Select
         Select(ele).select_by_visible_text(text)
 
+    #接受alert弹窗
+    @classmethod
+    def accept_alert(cls,driver):
+        alert = driver.switch_to.alert
+        alert.accept()
 
 
 
