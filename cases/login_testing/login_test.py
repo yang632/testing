@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# File    : login_test
+# File    : login_testing
 # Author  : yang
 # Email   : yang@163.com
 # Software: PyCharm
@@ -9,9 +9,10 @@ import unittest
 from tools.service import Service
 from parameterized import parameterized
 from tools.utility import Utility
+import warnings
 class LoginTest(unittest.TestCase):
     #获取测试数据
-    content=Utility.get_json('../conf/yang/testinfo.conf')
+    content=Utility.get_json('../../conf/yang/testinfo.conf')
     login_info=Utility.tran_tuple(content[0])
     print(login_info)
     @classmethod
@@ -30,6 +31,7 @@ class LoginTest(unittest.TestCase):
     #测试登录
     @parameterized.expand(login_info)
     def test_login(self,uname,psword,code,expect):
+        warnings.simplefilter('ignore', ResourceWarning)
         self.login.do_login(uname,psword,code)
         # time.sleep(25)
         from selenium.webdriver.common.by import By
@@ -41,6 +43,7 @@ class LoginTest(unittest.TestCase):
             self.login.click_logout()
         else:
             actual="login-fail"
+
         self.assertEqual(actual,expect)
 if __name__ == '__main__':
     unittest.main(verbosity=2)

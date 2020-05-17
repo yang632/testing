@@ -67,9 +67,16 @@ class Service:
                 div:nth-child(1) > div:nth-child(3) > button:nth-child(1)').click()
 
 
-
-
-
+    #下拉框选择通过value
+    @classmethod
+    def select_value(cls,ele,value):
+        from selenium.webdriver.support.select import Select
+        Select(ele).select_by_value(value)
+    # 下拉框选择通过text
+    @classmethod
+    def select_text(cls,ele,text):
+        from selenium.webdriver.support.select import Select
+        Select(ele).select_by_visible_text(text)
 
 
 
