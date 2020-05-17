@@ -17,7 +17,7 @@ class Service:
         # print(content)
         return getattr(webdriver,content["BROWSER"])()
 
-    #打开首页
+    #打开首页yang
     @classmethod
     def open_startpage(cls,driver):
         content=Utility.get_json('../conf/yang/base.conf')
@@ -26,6 +26,13 @@ class Service:
         # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
         driver.get(url)
 
+    # 打开首页huang
+    @classmethod
+    def open_startpage_huang(cls, driver):
+        content = Utility.get_json('../conf/huang/base.conf')
+        # print(content)
+        url = f"{content['PROTOCOL']}://{content['HOSTNAME']}:{content['PORT']}/{content['PROGRAM']}/"
+        driver.get(url)
 
     #输入内容
     @classmethod
