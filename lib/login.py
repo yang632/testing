@@ -6,6 +6,7 @@
 # Time    : 2020/5/16 17:21
 from tools.service import Service
 
+
 class Login:
     def __init__(self,driver):
         self.driver=driver
@@ -46,8 +47,8 @@ class Login:
 
 if __name__ == '__main__':
     pass
-    from selenium import webdriver
-    driver=webdriver.Edge()
-    driver.implicitly_wait(10)
-    lo=Login(driver)
-    lo.do_login("WNCD000","woniu123","0000")
+    # from selenium import webdriver
+    # driver=webdriver.Edge()
+    # driver.implicitly_wait(10)
+    # lo=Login(driver)
+    # lo.do_login("WNCD000","woniu123","0000")

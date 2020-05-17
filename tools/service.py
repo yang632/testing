@@ -6,7 +6,7 @@
 # Time    : 2020/5/16 16:54
 import time
 
-from lib.login import Login
+
 from tools.utility import Utility
 class Service:
     #获取driver
@@ -58,6 +58,7 @@ class Service:
         contents = Utility.get_json('../conf/yang/base.conf')
         #执行登录
 
+        from lib.login import Login
         Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'])
         time.sleep(2)
         #点击解密按钮
