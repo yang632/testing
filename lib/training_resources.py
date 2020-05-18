@@ -273,13 +273,7 @@ class TrainingResources:
 
     #执行跟踪资源
     def do_track_resource(self,old_num,track_resource_info):
-        track_resource_info={"new_status":new_status,'priority':priority,
-        'next_time':next_time,'track_keys':track_keys,'class':s_class,
-        'payment_way':payment_way,'fee':fee,'account':account,'amount':amount,
-        'trade_time':trade_time,
 
-        }
-        driver=self.driver
         #获取到此时跟踪资源的电话号码
         track_resource_tel=self.click_track_resource_button(old_num)
         self.click_track_resource_link()
@@ -307,6 +301,14 @@ class TrainingResources:
 
         return track_resource_tel
 
+    ####################################################################################
+    #随机修改一个数据
+    def edit_button(self,old_num):
+
+        if old_num >10:
+            old_num=10
+        num=Utility.get_random_num(1,old_num)
+        self.driver.find_element_by_xpath(f'//*[@id="personal-table"]/tbody/tr[{num}]/td[15]/button[2]').click()
 
 
 

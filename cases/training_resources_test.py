@@ -23,9 +23,11 @@ class TranningResourcesTest(unittest.TestCase):
     # print(rescoure_query_info)
 
     discard_info=Utility.tran_tuple(contents[3])
-    print(discard_info)
+    # print(discard_info)
 
-
+    #跟踪资源的测试数据
+    track_resource_info=Utility.tran_tuple(contents[4])
+    print(track_resource_info)
 
 
     @classmethod
@@ -95,7 +97,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     #测试废弃
     @parameterized.expand(discard_info)
-    @unittest.skip('2')
+    # @unittest.skip('2')
     def test_discard_resource(self,end,expect):
         driver=self.driver
         #获取废弃前的数量
@@ -117,8 +119,35 @@ class TranningResourcesTest(unittest.TestCase):
         self.assertEqual(actual,expect)
 
 
+    #测试跟踪资源
+    @parameterized.expand(track_resource_info)
+    def test_do_track_resource(self,new_status,priority,next_time,track_keys,s_class,
+                               payment_way,fee,account,amount,trade_time,expect
+                               ):
+        track_resource_info={"new_status":new_status,'priority':priority,
+        'next_time':next_time,'track_keys':track_keys,'class':s_class,
+        'payment_way':payment_way,'fee':fee,'account':account,'amount':amount,
+        'trade_time':trade_time }
 
+        #点击搜索
+        self.tr.click_query()
+        #获取页面上的列表个数
+        old_num=Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+        old_num=int(old_num)
 
+        track_resource_tel=self.tr.do_track_resource(old_num,track_resource_info)
+
+        #搜索电话号码进行断言
+        self.tr.query_input_name(track_resource_tel)
+        self.tr.click_query()
+        #获取此时的电话号码信息
+        tel_list=Service.get_page_ele(self.driver,'//*[@id="personal-table"]/tbody/tr/td[6]')
+        if track_resource_tel in tel_list:
+            actual='track-success'
+        else:
+            actual='track-fail'
+
+        self.assertEqual(actual,expect)
 
 
 if __name__ == '__main__':
