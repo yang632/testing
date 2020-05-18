@@ -27,7 +27,7 @@ class TrainingResources:
         Service.send_input(tel,tel_value)
     #输入姓名
     def input_name(self,name_value):
-        name=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/input[3]')
+        name=self.driver.find_element_by_xpath('//*[@id="addCus"]/div[1]/div[1]/div[2]/input')
         # name = self.driver.find_element_by_css_selector('content > div.row.con-margin.con-body-header.queryDiv > div > input[type=text]:nth-child(6)')
         # content > div.row.con-margin.con-body-header.queryDiv > div > input[type=text]:nth-child(6)
         Service.send_input(name,name_value)
