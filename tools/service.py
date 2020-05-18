@@ -93,15 +93,25 @@ class Service:
         for content in contents:
             list.append(content.text)
         return list
-
-
     #获取页面条数
     @classmethod
     def get_num(cls,driver,traning__xpath):
         content=driver.find_element_by_xpath(traning__xpath).text
-
         import re
         return re.findall(r"总共 (.*?)条记录",content)[0]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     pass
