@@ -95,6 +95,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     #测试废弃
     @parameterized.expand(discard_info)
+    @unittest.skip('2')
     def test_discard_resource(self,end,expect):
         driver=self.driver
         #获取废弃前的数量
@@ -114,6 +115,8 @@ class TranningResourcesTest(unittest.TestCase):
             actual='discard-fail'
         print(actual)
         self.assertEqual(actual,expect)
+
+
 
 
 

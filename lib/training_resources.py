@@ -196,10 +196,28 @@ class TrainingResources:
         self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/button[2]').click()
         self.driver.refresh()
 
-
-
-
     #随机跟踪一个资源
+
+    #本次状态选择
+    def new_status(self,new_status_value):
+        new_status=self.driver.find_element_by_id('newStatus')
+        Service.select_text(new_status,new_status_value)
+    def track_resource(self,old_num):
+        driver=self.driver
+        #1-10的随机数
+        old_num=int(old_num)
+        if old_num > 10:
+            old_num=10
+        num_random=Utility.get_random_num(1,old_num)
+        #点击跟踪按钮
+        driver.find_element_by_xpath(f'//*[@id="personal-table"]/tbody/tr[{num_random}]/td[15]/button[1]').click()
+        #点击跟踪资源
+        driver.find_element_by_xpath('//*[@id="trackingCusLi"]/a').click()
+
+
+
+
+
 
 
 
