@@ -194,6 +194,7 @@ class TrainingResources:
         self.driver.find_element_by_xpath('//*[@id="abandon"]').click()
         #点击确认
         self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/button[2]').click()
+        self.driver.refresh()
 
 
 

@@ -100,16 +100,15 @@ class TranningResourcesTest(unittest.TestCase):
         #获取废弃前的数量
         self.tr.click_query()
         old_num=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
-        print(old_num)
+        # print(old_num)
         self.tr.discard_resource(old_num)
-
         #点击搜索
         self.tr.click_query()
         time.sleep(4)
         #获取废弃后的数量
         new_num=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
-        print(new_num)
-        if int(new_num) - int(old_num) == 1:
+        # print(new_num)
+        if int(old_num) - int(new_num) == 1:
             actual='discard-success'
         else:
             actual='discard-fail'
