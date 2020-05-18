@@ -133,6 +133,10 @@ class TrainingResources:
         #刷新页面
         time.sleep(3)
         self.driver.refresh()
+
+
+
+
     ###################################################################################################
     #资源库选择
     def select_resource_library(self,resource_value):
@@ -196,6 +200,9 @@ class TrainingResources:
         self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/button[2]').click()
         self.driver.refresh()
 
+
+
+
     ###################################################################################################
     #随机跟踪一个资源
     # 点击随机的跟踪资源按钮
@@ -205,28 +212,100 @@ class TrainingResources:
             old_num=10
         num_random=Utility.get_random_num(1,old_num)
         self.driver.find_element_by_xpath(f'//*[@id="personal-table"]/tbody/tr[{num_random}]/td[15]/button[1]').click()
+        #获取跟踪资源的电话号码
+        return  self.driver.find_element_by_xpath('//*[@id="resumeDivId"]/div[2]/blockquote/p[1]/span')
 
     # 点击跟踪资源链接
     def click_track_resource_link(self):
         self.driver.find_element_by_xpath('//*[@id="trackingCusLi"]/a').click()
+
     #本次状态选择
     def new_status(self,new_status_value):
         new_status=self.driver.find_element_by_id('newStatus')
         Service.select_text(new_status,new_status_value)
+
     #优先级选择
     def select_priority(self,priority_value):
         priority_ele=self.driver.find_element_by_xpath('//*[@id="formFollow"]/div[1]/div[2]/select')
         Service.select_text(priority_ele,priority_value)
-    #下次跟踪时间选择
-    def next_time(self):
-        next_time_ele =self.driver.find_element_by_xpath('')
+    #下次跟踪时间输入
+    def next_time(self,net_time_value):
+        next_time_ele =self.driver.find_element_by_id('next_time')
+        Service.send_input(next_time_ele,net_time_value)
+    #跟踪内容输入
+    def input_track_keys(self,track_keys_value):
+        track_keys_ele=self.driver.find_element_by_xpath('//*[@id="formFollow"]/div[2]/div/textarea')
+        Service.send_input(track_keys_ele,track_keys_value)
 
 
-    def do_track_resource(self,old_num):
+    #如果是已报名
+    #选择班级
+    def select_class(self,class_value):
+        class_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[1]/div[1]/select')
+        Service.select_text(class_ele,class_value)
+
+    #选择支付方式
+    def select_payment_way(self,payment_way_value):
+        payment_way_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[2]/div[1]/select')
+        Service.select_text(payment_way_ele,payment_way_value)
+
+    #选择学费
+    def select_fee(self,school_fee_value):
+        school_fee_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[1]/div[2]/select')
+        Service.select_text(school_fee_ele,school_fee_value)
+
+    #选择收入账户
+    def select_account(self,account_value):
+        account_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[2]/div[2]/select')
+        Service.select_text(account_ele,account_value)
+    #收入定金
+    def select_amount(self,amount_value):
+        amount_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[1]/div[3]/select')
+        Service.select_text(amount_ele,amount_value)
+    #输入缴费时间
+    def input_trade_time(self,trade_time_value):
+        trade_time_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[2]/div[3]/input')
+        Service.send_input(trade_time_ele,trade_time_value)
+
+    #输入保存
+    def input_save_tracking_btn(self):
+        self.driver.find_element_by_id('saveTrackingBtn').click()
+
+    #执行跟踪资源
+    def do_track_resource(self,old_num,track_resource_info):
+        track_resource_info={"new_status":new_status,'priority':priority,
+        'next_time':next_time,'track_keys':track_keys,'class':s_class,
+        'payment_way':payment_way,'fee':fee,'account':account,'amount':amount,
+        'trade_time':trade_time,
+
+        }
         driver=self.driver
-        #1-10的随机数
+        #获取到此时跟踪资源的电话号码
+        track_resource_tel=self.click_track_resource_button(old_num)
+        self.click_track_resource_link()
+        if track_resource_info['new_status']=='已报名':
+            self.new_status(track_resource_info['new_status'])
+            self.select_priority(track_resource_info['priority'])
+            self.next_time(track_resource_info['next_time'])
+            self.input_track_keys(track_resource_info['track_keys'])
 
+            #报名特有的
+            self.select_class(track_resource_info['class'])
+            self.select_payment_way(track_resource_info['payment_way'])
+            self.select_fee(track_resource_info['fee'])
+            self.select_account(track_resource_info['account'])
+            self.select_amount(track_resource_info['amount'])
+            self.input_trade_time(track_resource_info['trade_time'])
+            self.input_save_tracking_btn()
+        else:
+            # track_resource_info['new_status'] 不等于已报名
+            self.new_status(track_resource_info['new_status'])
+            self.select_priority(track_resource_info['priority'])
+            self.next_time(track_resource_info['net_time'])
+            self.input_track_keys(track_resource_info['track_keys'])
+            self.input_save_tracking_btn()
 
+        return track_resource_tel
 
 
 
