@@ -11,16 +11,16 @@ from tools.utility import Utility
 class Service:
     #获取driver
     @classmethod
-    def get_driver(cls):
+    def get_driver(cls,path):
         from selenium import webdriver
-        content=Utility.get_json('../conf/yang/base.conf')
+        content=Utility.get_json(path)
         # print(content)
         return getattr(webdriver,content["BROWSER"])()
 
     #打开首页yang
     @classmethod
-    def open_startpage(cls,driver):
-        content=Utility.get_json('../conf/yang/base.conf')
+    def open_startpage(cls,driver,path):
+        content=Utility.get_json(path)
         # print(content)
         url=f"{content['PROTOCOL']}://{content['HOSTNAME']}:{content['PORT']}/{content['PROGRAM']}/"
         # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
@@ -52,9 +52,9 @@ class Service:
 
     #登录执行,进行解密
     @classmethod
-    def ignor_login_decrypt(cls,driver):
+    def ignor_login_decrypt(cls,driver,path):
         cls.open_startpage(driver)
-        contents = Utility.get_json('../conf/yang/base.conf')
+        contents = Utility.get_json(path)
         #执行登录
 
         from lib.login import Login
@@ -87,12 +87,22 @@ class Service:
         alert = driver.switch_to.alert
         alert.accept()
 
+    #获取页面上的元素列表
+    @classmethod
+    def get_page_ele(cls,driver,page_xpath):
+        list=[]
+        contents=driver.find_elements_by_xpath(page_xpath)
+        for content in contents:
+            list.append(content.text)
+        return list
 
 
-
-
-
-
+    #获取页面条数
+    @classmethod
+    def get_num(cls,driver,traning__xpath):
+        content=driver.find_element_by_xpath(traning__xpath).text
+        import re
+        return re.findall(r"总共 (.*?)条记录",content)[0]
 
 if __name__ == '__main__':
     pass

@@ -9,4 +9,6 @@
 # from selenium import webdriver
 # driver=webdriver.Edge()
 # alert=driver.switch_to.alert
-# driver.
+# driver.refresh()
+# driver.find_elements_by_xpath().te
+# driver.find_element_by_css_selector()

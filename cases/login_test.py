@@ -23,7 +23,7 @@ class LoginTest(unittest.TestCase):
     def setUpClass(cls):
         pass
     def setUp(self):
-        self.driver=Service.get_driver('../conf/yang/base.conf')
+        self.driver=Service.get_driver()
         self.driver.implicitly_wait(15)
         from lib.login import Login
         self.login=Login(self.driver)

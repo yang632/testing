@@ -12,10 +12,12 @@ from tools.service import Service
 class TrainingResources:
     def __init__(self,driver):
         self.driver=driver
-
         #点击资源管理,点击培训资源
         self.driver.find_element_by_partial_link_text("资源管理").click()
         self.driver.find_element_by_partial_link_text("培训资源").click()
+
+
+
     #点击资源新增按钮
     def click_add_button(self):
         self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/div/div/button[1]').click()
@@ -26,6 +28,8 @@ class TrainingResources:
     #输入姓名
     def input_name(self,name_value):
         name=self.driver.find_element_by_xpath('//*[@id="addCus"]/div[1]/div[1]/div[2]/input')
+        # name = self.driver.find_element_by_css_selector('content > div.row.con-margin.con-body-header.queryDiv > div > input[type=text]:nth-child(6)')
+        # content > div.row.con-margin.con-body-header.queryDiv > div > input[type=text]:nth-child(6)
         Service.send_input(name,name_value)
     #选择性别
     def select_sex(self,sex_value):
@@ -106,7 +110,6 @@ class TrainingResources:
     # #新增资源组合操作
     def do_add_resources(self,add_resources_info):
         self.click_add_button()
-        time.sleep(2)
         self.input_tel(add_resources_info['cus.tel'])
         self.input_name(add_resources_info['cus.name'])
         self.select_sex(add_resources_info['cus.sex'])
@@ -127,6 +130,9 @@ class TrainingResources:
         self.input_last_tracking_remark(add_resources_info['cus.last_tracking_remark'])
         self.click_save_button()
         self.accept_success_alert()
+        #刷新页面
+        time.sleep(3)
+        self.driver.refresh()
 
     #资源库选择
     def select_resource_library(self,resource_value):
@@ -178,23 +184,34 @@ class TrainingResources:
 
 
 if __name__ == '__main__':
-    driver=Service.get_driver()
-    driver.implicitly_wait(10)
-    Service.ignor_login_decrypt(driver)
-    ts=TrainingResources(driver)
+    pass
+    # driver=Service.get_driver()
+    # driver.implicitly_wait(10)
+    # Service.ignor_login_decrypt(driver)
+    # ts=TrainingResources(driver)
+    # s=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+    # print(s)
+    # query_resource_info = {'resource': '临时池', 'status': '新入库', 'source': '全部',
+    #                        'start_time': '', 'end_time': '', 'query_name': '',
+    #                        "consultant": '全部'
+    #                        }
+    #
+    # ts.do_query(query_resource_info)
+    #
+    #
+    #
+    # lis1t = Service.get_page_ele(driver,'//*[@id="personal-table"]/tbody/tr/td[2]')
+    # print(lis1t)
+    #
 
-    add_resources_info={"cus.tel":"19877101296","cus.name":"三生三世",
-    "cus.sex":"女","cus.last_status":"新入库","cus.wechat":"啊啊撒啥啥所",
-    "cus.qq":"阿萨斯搜索","cus.school":"啊啊啊啊","cus.education":"本科",
-    "cus.major":"啊啊啊啊","cus.intent":"啊啊啊啊","cus.workage":"2年","cus.salary":"啊啊啊啊啊","cus.source":"今日头条","cus.email":"啊啊啊啊啊","cus.age":"2年",
-    "cus.eduexp":"啊啊啊","cus.experience":"三生三世",
-    "cus.last_tracking_remark":"少时诵诗书所"}
 
-    ts.do_add_resources(add_resources_info)
 
-    query_resource_info = {'resource': '临时池', 'status': '新入库', 'source': '全部',
-                           'start_time': '2019-09-10', 'end_time': '2020-05-12', 'query_name': '全部',
-                           "consultant": '全部'
-                           }
-
-    ts.do_query(query_resource_info)
+    # add_resources_info={"cus.tel":"19877101296","cus.name":"三生三世",
+    # "cus.sex":"女","cus.last_status":"新入库","cus.wechat":"啊啊撒啥啥所",
+    # "cus.qq":"阿萨斯搜索","cus.school":"啊啊啊啊","cus.education":"本科",
+    # "cus.major":"啊啊啊啊","cus.intent":"啊啊啊啊","cus.workage":"2年","cus.salary":"啊啊啊啊啊","cus.source":"今日头条","cus.email":"啊啊啊啊啊","cus.age":"2年",
+    # "cus.eduexp":"啊啊啊","cus.experience":"三生三世",
+    # "cus.last_tracking_remark":"少时诵诗书所"}
+    #
+    # ts.do_add_resources(add_resources_info)
+    #
