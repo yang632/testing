@@ -49,15 +49,6 @@ class Utility:
         import time
         return time.strftime("%Y-%m-%d_%H-%M-%S",time.localtime())
 
-
-
-
-    #获取随机数
-    @classmethod
-    def get_random_num(cls, start, end):
-        import random
-        return random.randint(start, end)
-
     # 创建数据库连接
     @classmethod
     def getConn(cls,path):

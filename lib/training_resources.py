@@ -5,8 +5,8 @@
 # Software: PyCharm
 # Time    : 2020/5/17 10:18   培训资源操作  add query  废弃
 import time
-
 from tools.service import Service
+from tools.utility import Utility
 
 
 class TrainingResources:
@@ -178,6 +178,33 @@ class TrainingResources:
         self.query_input_name(query_resource_info['query_name'])
         self.select_consultant(query_resource_info['consultant'])
         self.click_query()
+
+
+    #随机废弃一个资源
+    def discard_resource(self):
+        #1-10的随机数
+        num=Utility.get_random_num()
+        #搜索可以废弃的资源
+        self.driver.refresh()
+        self.click_query()
+        #勾选资源
+        self.driver.find_element_by_xpath(f'//*[@id="personal-table"]/thead/tr[{num}]/th[1]/div[1]/input').click()
+        #点击废弃
+        self.driver.find_element_by_xpath('//*[@id="abandon"]')
+        #点击确认
+        self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/button[2]').click()
+
+
+
+
+    #随机跟踪一个资源
+
+
+
+
+
+
+
 
 
 

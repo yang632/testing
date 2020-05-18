@@ -20,7 +20,13 @@ class TranningResourcesTest(unittest.TestCase):
     tranning_resources_info=Utility.tran_tuple(contents[1])
 
     rescoure_query_info=Utility.tran_tuple(contents[2])
-    print(rescoure_query_info)
+    # print(rescoure_query_info)
+
+    discard_info=Utility.tran_tuple(contents[3])
+    print(discard_info)
+
+
+
 
     @classmethod
     def setUpClass(cls):
@@ -86,6 +92,24 @@ class TranningResourcesTest(unittest.TestCase):
             actual="query-fail"
         self.assertEqual(actual,expect)
 
+
+    #测试废弃
+    @parameterized.expand(discard_info)
+    def test_discard_resource(self,end,expect):
+        driver=self.driver
+        #获取废弃前的数量
+        old_num=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+        print(old_num)
+        self.tr.discard_resource()
+        #获取废弃后的数量
+        new_num=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+        print(new_num)
+        if int(new_num) - int(old_num) == 1:
+            actual='discard-success'
+        else:
+            actual='discard-fail'
+
+        self.assertEqual(actual,expect)
 
 
 
