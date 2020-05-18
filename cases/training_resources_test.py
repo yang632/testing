@@ -18,7 +18,9 @@ class TranningResourcesTest(unittest.TestCase):
     contents=Utility.get_json('../conf/yang/testinfo.conf')
     # print(contents[1])
     tranning_resources_info=Utility.tran_tuple(contents[1])
-    print(tranning_resources_info)
+
+    rescoure_query_info=Utility.tran_tuple(contents[2])
+    print(rescoure_query_info)
 
     @classmethod
     def setUpClass(cls):
@@ -37,6 +39,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     # 测试增加
     @parameterized.expand(tranning_resources_info)
+    @unittest.skip("1")
     def test_add_resources(self,cus_tel,cus_name,cus_sex,cus_last_status,cus_wechat,cus_qq,
                            cus_school,cus_education,cus_major,cus_intent,cus_workage,cus_salary,
                            cus_source,cus_email,cus_age,cus_eduexp,cus_experience,cus_last_tracking_remark,expect):
@@ -60,6 +63,32 @@ class TranningResourcesTest(unittest.TestCase):
         else:
             actual='add-fail'
         self.assertEqual(actual,expect)
+
+
+
+    #测试搜索
+    @parameterized.expand(rescoure_query_info)
+    @unittest.skip("1")
+    def test_do_query(self,resource,status,source,start_time,end_time,query_name,consultant,expect):
+        query_resource_info = {'resource': resource, 'status':status, 'source': source,
+                               'start_time': start_time, 'end_time': end_time, 'query_name':query_name,
+                               "consultant": consultant
+                               }
+
+
+        self.tr.do_query(query_resource_info)
+        time.sleep(2)
+        qury_num=Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+        # print(qury_num_list)
+        if int(qury_num) > 0:
+            actual='query-success'
+        else:
+            actual="query-fail"
+        self.assertEqual(actual,expect)
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

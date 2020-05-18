@@ -185,18 +185,18 @@ class TrainingResources:
 
 if __name__ == '__main__':
     pass
-    # driver=Service.get_driver()
-    # driver.implicitly_wait(10)
-    # Service.ignor_login_decrypt(driver)
-    # ts=TrainingResources(driver)
+    driver=Service.get_driver('../conf/yang/base.conf')
+    driver.implicitly_wait(10)
+    Service.ignor_login_decrypt(driver,'../conf/yang/base.conf')
+    ts=TrainingResources(driver)
     # s=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
     # print(s)
-    # query_resource_info = {'resource': '临时池', 'status': '新入库', 'source': '全部',
-    #                        'start_time': '', 'end_time': '', 'query_name': '',
-    #                        "consultant": '全部'
-    #                        }
-    #
-    # ts.do_query(query_resource_info)
+    query_resource_info = {'resource': '临时池', 'status': '新入库', 'source': '全部',
+                           'start_time': '', 'end_time': '', 'query_name':'',
+                           "consultant": '全部'
+                           }
+
+    ts.do_query(query_resource_info)
     #
     #
     #

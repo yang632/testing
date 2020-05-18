@@ -99,6 +99,7 @@ class Service:
     @classmethod
     def get_num(cls,driver,traning__xpath):
         content=driver.find_element_by_xpath(traning__xpath).text
+
         import re
         return re.findall(r"总共 (.*?)条记录",content)[0]
 

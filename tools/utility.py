@@ -135,6 +135,15 @@ class Utility:
         screenshot_path = '..\\screenshot\\fail%s.png' % (ctime)
         cls.get_png(driver, screenshot_path)
 
+    #生成1-10的随机数随机数
+    @classmethod
+    def get_random_num(cls):
+        import random
+        return random.randint(1, 10)
+
+
+
+
 if __name__ == '__main__':
     pass
     s=Utility.get_json("../conf/yang/testinfo.conf")
