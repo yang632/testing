@@ -16,14 +16,13 @@ from tools.utility import Utility
 
 class LoginTest(unittest.TestCase):
     content=Utility.get_json('../conf/yang/testinfo.conf')
-
     login_info=Utility.tran_tuple(content[0])
 
     @classmethod
     def setUpClass(cls):
-        pass
+        warnings.simplefilter('ignore', ResourceWarning)
     def setUp(self):
-        self.driver=Service.get_driver()
+        self.driver=Service.get_driver('../conf/yang/base.conf')
         self.driver.implicitly_wait(15)
         from lib.login import Login
         self.login=Login(self.driver)
@@ -35,7 +34,7 @@ class LoginTest(unittest.TestCase):
     #测试登录
     @parameterized.expand(login_info)
     def test_login(self,uname,psword,code,expect):
-        warnings.simplefilter('ignore', ResourceWarning)
+
         self.login.do_login(uname,psword,code)
         # time.sleep(25)
         from selenium.webdriver.common.by import By

@@ -5,7 +5,7 @@
 # Software: PyCharm
 # Time    : 2020/5/17 20:39
 #分配资源的测试类
-# import time
+import time
 import unittest
 import warnings
 
@@ -22,12 +22,12 @@ class TranningResourcesTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        pass
+        warnings.simplefilter('ignore', ResourceWarning)
     def setUp(self):
-        self.driver=Service.get_driver()
+        self.driver=Service.get_driver('../conf/yang/base.conf')
         self.driver.implicitly_wait(15)
         from lib.training_resources import TrainingResources
-        Service.ignor_login_decrypt(self.driver)
+        Service.ignor_login_decrypt(self.driver,'../conf/yang/base.conf')
         self.tr=TrainingResources(self.driver)
     def tearDown(self):
         self.driver.quit()
@@ -40,7 +40,9 @@ class TranningResourcesTest(unittest.TestCase):
     def test_add_resources(self,cus_tel,cus_name,cus_sex,cus_last_status,cus_wechat,cus_qq,
                            cus_school,cus_education,cus_major,cus_intent,cus_workage,cus_salary,
                            cus_source,cus_email,cus_age,cus_eduexp,cus_experience,cus_last_tracking_remark,expect):
-        warnings.simplefilter('ignore', ResourceWarning)
+
+        #获取页面数据条数
+        old_num=Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
         add_resources_info = {"cus.tel": cus_tel, "cus.name": cus_name,
           "cus.sex": cus_sex,"cus.last_status": cus_last_status,"cus.wechat": cus_wechat,
           "cus.qq": cus_qq, "cus.school": cus_school, "cus.education": cus_education,
@@ -50,19 +52,17 @@ class TranningResourcesTest(unittest.TestCase):
           "cus.last_tracking_remark": cus_last_tracking_remark}
         self.tr.do_add_resources(add_resources_info)
 
-        #执行数据后,点击搜索
-        self.tr.query_input_name(cus_tel)
-        self.tr.click_query()
-
-
-        #获取电话列表信息
-        ele_list=Service.get_page_ele(self.driver,'//*[@id="personal-table"]/tbody/tr/td[6]')
-
-        if cus_tel in ele_list:
-            actual='add-success'
-        else:
-            actual='add-fail'
-        self.assertEqual(actual,expect)
+        # #执行数据后,点击搜索
+        # self.tr.click_query()
+        # new_num=Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+        #
+        #
+        # if int(new_num)-int(old_num)==1:
+        #     actual='add-success'
+        # else:
+        #     actual='add-fail'
+        #     Utility.get_error_png(self.driver)
+        # self.assertEqual(actual,expect)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
