@@ -27,6 +27,7 @@ class TrainingResources:
         Service.send_input(tel,tel_value)
     #输入姓名
     def input_name(self,name_value):
+
         name=self.driver.find_element_by_xpath('//*[@id="addCus"]/div[1]/div[1]/div[2]/input')
         # name = self.driver.find_element_by_css_selector('content > div.row.con-margin.con-body-header.queryDiv > div > input[type=text]:nth-child(6)')
         # content > div.row.con-margin.con-body-header.queryDiv > div > input[type=text]:nth-child(6)
@@ -303,12 +304,44 @@ class TrainingResources:
 
     ####################################################################################
     #随机修改一个数据
-    def edit_button(self,old_num):
 
+    # 修改姓名
+    def edit_name(self,edit_name_value):
+        edit_name_ele=self.driver.find_element_by_xpath('//*[@id="modifyForm"]/div/div[1]/div[1]/input')
+        Service.send_input(edit_name_ele,edit_name_value)
+
+    #修改状态
+    def edit_status(self,edit_status_value):
+        edit_status_ele=self.driver.find_element_by_xpath('//*[@id="modifyForm"]/div/div[1]/div[3]/select')
+        Service.select_text(edit_status_ele,edit_status_value)
+
+    #修改电话号码
+    def edit_tel(self,edit_tel_value):
+        edit_tel_ele=self.driver.find_element_by_xpath('//*[@id="modifyForm"]/div/div[2]/div[1]/input')
+        Service.send_input(edit_tel_ele,edit_tel_value)
+
+    #修改渠道来源
+    def edit_source(self,edit_source_value):
+        edit_source_ele=self.driver.find_element_by_xpath('//*[@id="modifyForm"]/div/div[5]/div[2]/select')
+        Service.select_text(edit_source_ele,edit_source_value)
+
+    def click_edit_button(self):
+        self.driver.find_element_by_id("alterCusBtn").click()
+
+    #执行修改组合操作
+    def do_edit_recource(self,old_num,edit_recource_info):
+        # edit_recource_info={"edit_name":edit_name,'edit_status':edit_status,
+        #                     'edit_tel':edit_tel,'edit_source';edit_source
+        #                     }
         if old_num >10:
             old_num=10
         num=Utility.get_random_num(1,old_num)
         self.driver.find_element_by_xpath(f'//*[@id="personal-table"]/tbody/tr[{num}]/td[15]/button[2]').click()
+        self.edit_name(edit_recource_info['edit_name'])
+        self.edit_status(edit_recource_info['edit_status'])
+        self.edit_tel(edit_recource_info['edit_tel'])
+        self.edit_source(edit_recource_info['edit_source'])
+        self.click_edit_button()
 
 
 
