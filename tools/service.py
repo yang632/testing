@@ -88,12 +88,22 @@ class Service:
         alert = driver.switch_to.alert
         alert.accept()
 
+    #获取页面上的元素列表
+    @classmethod
+    def get_page_ele(cls,driver,page_xpath):
+        list=[]
+        contents=driver.find_elements_by_xpath(page_xpath)
+        for content in contents:
+            list.append(content.text)
+        return list
 
 
-
-
-
-
+    #获取页面条数
+    @classmethod
+    def get_num(cls,driver,traning__xpath):
+        content=driver.find_element_by_xpath(traning__xpath).text
+        import re
+        return re.findall(r"总共 (.*?)条记录",content)[0]
 
 if __name__ == '__main__':
     pass
