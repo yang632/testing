@@ -181,16 +181,17 @@ class TrainingResources:
 
 
     #随机废弃一个资源
-    def discard_resource(self):
+    def discard_resource(self,old_num):
         #1-10的随机数
-        num=Utility.get_random_num()
-        #搜索可以废弃的资源
-        self.driver.refresh()
-        self.click_query()
+        old_num=int(old_num)
+        if old_num > 10:
+            old_num=10
+        num_random=Utility.get_random_num(1,old_num)
+
         #勾选资源
-        self.driver.find_element_by_xpath(f'//*[@id="personal-table"]/thead/tr[{num}]/th[1]/div[1]/input').click()
+        self.driver.find_element_by_xpath(f'//*[@id="personal-table"]/tbody/tr[{num_random}]/td[1]/input').click()
         #点击废弃
-        self.driver.find_element_by_xpath('//*[@id="abandon"]')
+        self.driver.find_element_by_xpath('//*[@id="abandon"]').click()
         #点击确认
         self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/button[2]').click()
 

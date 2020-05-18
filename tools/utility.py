@@ -128,9 +128,9 @@ class Utility:
 
     #生成1-10的随机数随机数
     @classmethod
-    def get_random_num(cls):
+    def get_random_num(cls,start,end):
         import random
-        return random.randint(1, 10)
+        return random.randint(start, end)
 
 
 
