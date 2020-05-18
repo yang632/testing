@@ -10,7 +10,7 @@ class Utility:
     @classmethod
     def get_json(cls, path):
         import json
-        with open(path, encoding='utf8') as file:
+        with open(path,encoding='utf8') as file:
             contents = json.load(file)
         return contents
 
@@ -60,9 +60,9 @@ class Utility:
 
     # 创建数据库连接
     @classmethod
-    def getConn(cls):
+    def getConn(cls,path):
         import pymysql
-        contents = cls.get_json('../conf/yang/base.conf')
+        contents = cls.get_json(path)
         return pymysql.connect(contents['HOSTNAME'],
                                contents['DBUSER'], contents['DBPASS'],
                                contents['DBNAME'], charset='utf8')

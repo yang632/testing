@@ -11,16 +11,16 @@ from tools.utility import Utility
 class Service:
     #获取driver
     @classmethod
-    def get_driver(cls):
+    def get_driver(cls,path):
         from selenium import webdriver
-        content=Utility.get_json('../conf/yang/base.conf')
+        content=Utility.get_json(path)
         # print(content)
         return getattr(webdriver,content["BROWSER"])()
 
     #打开首页
     @classmethod
-    def open_startpage(cls,driver):
-        content=Utility.get_json('../conf/yang/base.conf')
+    def open_startpage(cls,driver,path):
+        content=Utility.get_json(path)
         # print(content)
         url=f"{content['PROTOCOL']}://{content['HOSTNAME']}:{content['PORT']}/{content['PROGRAM']}/"
         # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
@@ -53,9 +53,9 @@ class Service:
 
     #登录执行,进行解密
     @classmethod
-    def ignor_login_decrypt(cls,driver):
+    def ignor_login_decrypt(cls,driver,path):
         cls.open_startpage(driver)
-        contents = Utility.get_json('../conf/yang/base.conf')
+        contents = Utility.get_json(path)
         #执行登录
 
         from lib.login import Login
