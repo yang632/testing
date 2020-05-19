@@ -62,7 +62,6 @@ class CourseArrangement:
         start_time_ele=self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[1]/input')
         Service.send_input(start_time_ele,start_time_value)
 
-
     #结束时间
     def end_time(self,end_time_value):
         end_time_ele = self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[2]/input')
