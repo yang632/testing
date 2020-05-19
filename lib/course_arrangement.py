@@ -10,9 +10,9 @@ class CourseArrangement:
     def __init__(self,driver):
             self.driver = driver
             # 点击教学管理
-            self.driver.find_element_by_partial_link_text("教学管理").click()
+            self.driver.find_element_by_xpath('//*[@id="nav2"]/div[7]/div[1]/a').click()
             # 点击课程安排
-            self.driver.find_element_by_partial_link_text("课程安排").click()
+            self.driver.find_element_by_xpath('//*[@id="list-11"]/div/ul/li[1]/a').click()
 
     # 点击查询
     def click_query(self):
