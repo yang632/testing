@@ -21,10 +21,10 @@ class CouresArrangementTest(unittest.TestCase):
     query_coure_info = Utility.tran_tuple(contents[2])
 
     @classmethod
-    def setUpClass(cls) -> None:
+    def setUpClass(cls):
         warnings.simplefilter('ignore',ResourceWarning)
 
-    def setUp(self) -> None:
+    def setUp(self):
         self.driver = Service.get_driver('../conf/huang/base.conf')
         self.driver.implicitly_wait(10)
         Service.ignor_login_decrypt(self.driver,'../conf/huang/base.conf')
@@ -62,7 +62,7 @@ class CouresArrangementTest(unittest.TestCase):
                                  'start_time': start_tiame, 'end_time': end_tiame
                                  }
         self.ca.do_query(query_all_course_info)
-        query_num=Service.get_num(self.driver,'*[@id="course"]/div[2]/div[2]/div[4]/div[1]/span[1]')
+        query_num=Service.get_num(self.driver,'//*[@id="course"]/div[2]/div[2]/div[4]/div[1]/span[1]')
 
         if int(query_num) > 0:
             actual='query-success'
@@ -73,4 +73,4 @@ class CouresArrangementTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    pass
