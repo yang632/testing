@@ -74,23 +74,6 @@ class CourseArrangement:
         start_time_ele=self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[1]/input')
         Service.send_input(start_time_ele,start_time_value)
 
-    # document.querySelector("#addcourse > div.row > div:nth-child(1) > input")
-
-    # 输入新增排课开始时间
-    def input_start_time(self, starttime):
-        js = 'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").removeAttribute("readonly");'  # js去掉readonly属性
-        self.driver.execute_script(js)
-        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").value="{starttime}"'  # js添加时间
-        self.driver.execute_script(js_value)
-
-    # document.querySelector("#addcourse > div.row > div:nth-child(2) > input")
-    # 输入新增排课结束时间
-    def input_end_time(self, endtime):
-        # document.querySelector("#modifyCourseForm > div > div > div:nth-child(1) > input")
-        js = 'document.querySelector("#addcourse > div.row > div:nth-child(2) > input").removeAttribute("readonly");'  # js去掉readonly属性
-        self.driver.execute_script(js)
-        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(2) > input").value="{endtime}"'  # js添加时间
-        self.driver.execute_script(js_value)
 
     # 选择讲师
     def select_teacher(self, teacher_value):
@@ -124,14 +107,15 @@ class CourseArrangement:
     def do_add_course(self,add_course_info):
         self.click_query()
         self.click_new_course()
+        # 输入开始时间
         Service.input_time(self.driver,add_course_info['start_js'],add_course_info['start_time'])
         Service.input_time(self.driver,add_course_info['end_js'],add_course_info['end_time'])
         self.select_teacher(add_course_info['teacher'])
         self.select_classroom(add_course_info['classroom'])
         self.select_classcode(add_course_info['classcode'])
         self.select_course(add_course_info['course'])
-        # self.click_save()
-        # self.click_confirm()
+        self.click_save()
+        self.click_confirm()
 
 # 修改排课
 # ---------------------------------------------------------------------------------------------
