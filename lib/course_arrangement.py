@@ -69,12 +69,6 @@ class CourseArrangement:
         # 点击排课按钮
         self.driver.find_element_by_css_selector("button.btn:nth-child(11)").click()
 
-    #开始时间
-    def start_time(self,start_time_value):
-        start_time_ele=self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[1]/input')
-        Service.send_input(start_time_ele,start_time_value)
-
-
     # 选择讲师
     def select_teacher(self, teacher_value):
         teacher_ele = self.driver.find_element_by_xpath('//*[@id="addCourse-table"]/tr/td[1]/select')
@@ -129,6 +123,14 @@ class CourseArrangement:
         classnum = random.randint(1, int(num))
         self.driver.find_element_by_xpath(f'//*[@id="course_table"]/tbody/tr[{classnum}]/td[9]/button').click()
 
+    # 输入开始时间
+    def start_time(self):
+        Service.input_time(self.driver,alter_course_info['satrt_js'],alter_course_info['start_time'])
+
+    #输入结束时间
+    def end_time(self):
+        Service.input_time(self.driver,alter_course_info['end_js'],alter_course_info['end_time'])
+
 
 
 
@@ -155,3 +157,8 @@ if __name__ == '__main__':
                      }
 
     ca.do_add_course(add_course_info)
+
+    alter_course_info = {"start_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(1) > input\")",
+                        "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
+                        "teacher":"阿大"
+                        }
