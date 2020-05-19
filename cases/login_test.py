@@ -35,7 +35,7 @@ class LoginTest(unittest.TestCase):
     @parameterized.expand(login_info)
     def test_login(self,uname,psword,code,expect):
 
-        self.login.do_login(uname,psword,code)
+        self.login.do_login(uname,psword,code,'../conf/yang/base.conf')
         # time.sleep(25)
         from selenium.webdriver.common.by import By
         #如果存在注销链接
