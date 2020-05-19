@@ -62,12 +62,6 @@ class CourseArrangement:
         start_time_ele=self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[1]/input')
         Service.send_input(start_time_ele,start_time_value)
 
-    # 输入跟踪资源下次跟踪时间
-    def input_tail_time(self, time):
-        js = 'document.getElementById("next_time").removeAttribute("readonly");'  # js去掉readonly属性
-        self.driver.execute_script(js)
-        js_value = f'document.getElementById("next_time").value="{time}"'  # js添加时间
-        self.driver.execute_script(js_value)
 
     #结束时间
     def end_time(self,end_time_value):
