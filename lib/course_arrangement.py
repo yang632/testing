@@ -16,7 +16,7 @@ class CourseArrangement:
 
     # 点击查询
     def click_query(self):
-        self.driver.find_element_by_css_selector("button.btn:nth-child(10)").click()
+        self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/button[1]').click()
 
     # 选择校区
     def select_campus(self, campus_value):
@@ -35,12 +35,12 @@ class CourseArrangement:
 
     # 开始时间
     def query_start_time(self, start_time_value):
-        start_time_ele = self.driver.find_element_by_partial_link_text('//*[@id="course"]/div[1]/input[1]')
+        start_time_ele = self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/input[1]')
         Service.send_input(start_time_ele, start_time_value)
 
     # 结束时间
     def query_end_time(self, end_time_value):
-        end_time_ele = self.driver.find_element_by_partial_link_text('//*[@id="course"]/div[1]/input[2]')
+        end_time_ele = self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/input[2]')
         Service.send_input(end_time_ele, end_time_value)
 
     # 执行搜索
@@ -59,12 +59,12 @@ class CourseArrangement:
 
     #开始时间
     def start_time(self,start_time_value):
-        start_time_ele=self.driver.find_element_by_partial_link_text('cur.start_time')
+        start_time_ele=self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[1]/input')
         Service.send_input(start_time_ele,start_time_value)
 
     #结束时间
     def end_time(self,end_time_value):
-        end_time_ele = self.driver.find_element_by_partial_link_text('cur.end_time')
+        end_time_ele = self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[2]/input')
         Service.send_input(end_time_ele,end_time_value)
 
     # 选择讲师
