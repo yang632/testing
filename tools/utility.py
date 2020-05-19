@@ -34,6 +34,7 @@ class Utility:
             tup['expext']=expect
             testinfo.append(tup)
         return testinfo
+
     @classmethod
     def tran_tuple(cls,conf):
         contents=Utility.get_testinfo(conf)
