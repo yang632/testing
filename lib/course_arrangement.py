@@ -112,15 +112,15 @@ if __name__ == '__main__':
     Service.ignor_login_decrypt(driver, '../conf/huang/base.conf')
     ca = CourseArrangement(driver)
 
+    query_resource_info = {'campus': '成都', 'teacher': '我是谁', 'specialty': '全部',
+                           'start_time': '', 'end_time': ''
+                           }
+
+    ca.do_query(query_resource_info)
+
     add_course_info={"start_time":"2020-05-10","end_time":"2020-06-01",
                      "teacher":"我是谁","classroom":"教室一","classcode":"WNCDC002",
                      "course":"第一阶段-第二周-MySQL数据库"
                      }
 
     ca.do_add_course(add_course_info)
-
-    query_resource_info = {'campus': '成都', 'teacher': '我是谁', 'specialty': '全部',
-                           'start_time': '', 'end_time': ''
-                           }
-
-    ca.do_query(query_resource_info)
