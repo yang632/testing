@@ -60,7 +60,6 @@ class Service:
         cls.open_startpage(driver,path)
         contents = Utility.get_json(path)
         #执行登录
-
         from lib.login import Login
         Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'],path)
         time.sleep(2)

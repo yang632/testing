@@ -123,7 +123,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     #测试跟踪资源
     @parameterized.expand(track_resource_info)
-    @unittest.skip('忽略跟踪资源')
+    # @unittest.skip('忽略跟踪资源')
     def test_do_track_resource(self,new_status,priority,next_time,track_keys,s_class,
                                payment_way,fee,account,amount,trade_time,expect
                                ):
@@ -141,7 +141,7 @@ class TranningResourcesTest(unittest.TestCase):
         old_num=int(old_num)
         # print(old_num)
         track_resource_tel=self.tr.do_track_resource(old_num,track_resource_info)
-        print(track_resource_tel)
+        # print(track_resource_tel)
         #搜索电话号码进行断言
         time.sleep(2)
         self.driver.refresh()
@@ -187,12 +187,6 @@ class TranningResourcesTest(unittest.TestCase):
             actual='edit-fail'
             Utility.get_error_png(self.driver)
         self.assertEqual(actual,expect)
-
-
-
-
-
-
 
 
 if __name__ == '__main__':
