@@ -51,7 +51,7 @@ class Service:
     #登录执行,进行解密
     @classmethod
     def ignor_login_decrypt(cls,driver,path):
-        cls.open_startpage(driver,path)
+        # cls.open_startpage(driver,path)
         contents = Utility.get_json(path)
         #执行登录
 
