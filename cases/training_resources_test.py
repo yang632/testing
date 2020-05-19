@@ -8,7 +8,6 @@
 import time
 import unittest
 import warnings
-
 from tools.service import Service
 from tools.utility import Utility
 from parameterized import parameterized
@@ -27,8 +26,11 @@ class TranningResourcesTest(unittest.TestCase):
 
     #跟踪资源的测试数据
     track_resource_info=Utility.tran_tuple(contents[4])
-    print(track_resource_info)
+    # print(track_resource_info)
 
+    #获取修改资源
+    edit_rescources_info=Utility.tran_tuple(contents[5])
+    print(edit_rescources_info)
 
     @classmethod
     def setUpClass(cls):
@@ -121,7 +123,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     #测试跟踪资源
     @parameterized.expand(track_resource_info)
-    # @unittest.skip('222')
+    @unittest.skip('忽略跟踪资源')
     def test_do_track_resource(self,new_status,priority,next_time,track_keys,s_class,
                                payment_way,fee,account,amount,trade_time,expect
                                ):
@@ -137,10 +139,12 @@ class TranningResourcesTest(unittest.TestCase):
         time.sleep(2)
         old_num=Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
         old_num=int(old_num)
-        print(old_num)
+        # print(old_num)
         track_resource_tel=self.tr.do_track_resource(old_num,track_resource_info)
         print(track_resource_tel)
         #搜索电话号码进行断言
+        time.sleep(2)
+        self.driver.refresh()
         self.tr.query_input_name(track_resource_tel)
         self.tr.click_query()
         #获取此时的电话号码信息
@@ -149,14 +153,40 @@ class TranningResourcesTest(unittest.TestCase):
             actual='track-success'
         else:
             actual='track-fail'
-
         self.assertEqual(actual,expect)
 
 
+    #测试修改资源
+    @parameterized.expand(edit_rescources_info)
+    def test_do_edit_recource(self,edit_name,edit_status,edit_tel,edit_source,expect):
+        edit_recource_info={"edit_name": edit_name,'edit_status':edit_status,'edit_tel':edit_tel,'edit_source':edit_source }
 
 
+        #获取此时页面上元素的数量
+        time.sleep(2)
+        old_num=Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+        old_num=int(old_num)
 
+        #执行修改
+        self.tr.do_edit_recource(old_num,edit_recource_info)
 
+        #进行搜索
+        self.driver.refresh()
+        time.sleep(2)
+        self.tr.query_input_name(edit_tel)
+
+        self.tr.click_query()
+
+        #进行判断
+
+        tel_list=Service.get_page_ele(self.driver,'//*[@id="personal-table"]/tbody/tr/td[6]')
+
+        if edit_tel in tel_list:
+            actual='edit-success'
+        else:
+            actual='edit-fail'
+            Utility.get_error_png(self.driver)
+        self.assertEqual(actual,expect)
 
 
 
