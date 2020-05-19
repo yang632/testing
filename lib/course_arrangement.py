@@ -125,11 +125,11 @@ class CourseArrangement:
         self.click_query()
         self.click_new_course()
         Service.input_time(self.driver,add_course_info['start_js'],add_course_info['start_time'])
-        # self.input_end_time(add_course_info['end_time'])
-        # self.select_teacher(add_course_info['teacher'])
-        # self.select_classroom(add_course_info['classroom'])
-        # self.select_classcode(add_course_info['classcode'])
-        # self.select_course(add_course_info['course'])
+        Service.input_time(self.driver,add_course_info['end_js'],add_course_info['end_time'])
+        self.select_teacher(add_course_info['teacher'])
+        self.select_classroom(add_course_info['classroom'])
+        self.select_classcode(add_course_info['classcode'])
+        self.select_course(add_course_info['course'])
         # self.click_save()
         # self.click_confirm()
 
@@ -164,6 +164,7 @@ if __name__ == '__main__':
     ca.do_query(query_course_info)
 
     add_course_info={"start_js":"document.querySelector(\"#addcourse > div.row > div:nth-child(1) > input\")",
+                     "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
                      "start_time":"2020-05-10","end_time":"2020-06-01",
                      "teacher":"我是谁","classroom":"教室一","classcode":"WNCDC002",
                      "course":"第一阶段-第二周-MySQL数据库"
