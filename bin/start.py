@@ -15,8 +15,11 @@ class Start:
         loader = unittest.TestLoader()
         names = Utility.get_str('../conf/yang/test.conf')
 <<<<<<< HEAD
+<<<<<<< HEAD
         print(names)
 =======
+=======
+>>>>>>> 9ef6fa912db099fa66b1f4f9fcb98645dd0abcfc
 
 >>>>>>> 9ef6fa912db099fa66b1f4f9fcb98645dd0abcfc
         tests=loader.loadTestsFromNames(names)
