@@ -18,6 +18,40 @@ class CourseArrangement:
     def click_query(self):
         self.driver.find_element_by_css_selector("button.btn:nth-child(10)").click()
 
+    # 选择校区
+    def select_campus(self, campus_value):
+        campus_ele = self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/select[1]')
+        Service.select_text(campus_ele, campus_value)
+
+    # 选择讲师
+    def query_teacher(self, teacher_value):
+        teacher_ele = self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/select[2]')
+        Service.select_text(teacher_ele, teacher_value)
+
+    #选择方向
+    def select_specialty(self, specialty_value):
+        specialty_ele = self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/select[3]')
+        Service.select_text(specialty_ele, specialty_value)
+
+    # 开始时间
+    def query_start_time(self, start_time_value):
+        start_time_ele = self.driver.find_element_by_partial_link_text('//*[@id="course"]/div[1]/input[1]')
+        Service.send_input(start_time_ele, start_time_value)
+
+    # 结束时间
+    def query_end_time(self, end_time_value):
+        end_time_ele = self.driver.find_element_by_partial_link_text('//*[@id="course"]/div[1]/input[2]')
+        Service.send_input(end_time_ele, end_time_value)
+
+    # 执行搜索
+    def do_query(self, query_course_info):
+        self.select_campus(query_course_info['campus'])
+        self.query_teacher(query_course_info['teacher'])
+        self.select_specialty(query_course_info['specialty'])
+        self.query_start_time(query_course_info['start_time'])
+        self.query_end_time(query_course_info['end_time'])
+        self.click_query()
+
     # 点击排课
     def click_new_course(self):
         # 点击排课按钮
@@ -60,17 +94,16 @@ class CourseArrangement:
 
 
     #新增排课组合操作
-    def add_course(self,add_course_info):
+    def do_add_course(self,add_course_info):
         self.click_query()
         self.click_new_course()
-        self.start_time()
-        self.end_time()
-        self.select_teacher()
-        self.select_classroom()
-        self.select_classcode()
-        self.select_course()
+        self.start_time(add_course_info['start_time'])
+        self.end_time(add_course_info['end_time'])
+        self.select_teacher(add_course_info['teacher'])
+        self.select_classroom(add_course_info['classroom'])
+        self.select_classcode(add_course_info['classcode'])
+        self.select_course(add_course_info['course'])
         self.click_save()
-
 
 
 if __name__ == '__main__':
@@ -79,12 +112,15 @@ if __name__ == '__main__':
     Service.ignor_login_decrypt(driver, '../conf/huang/base.conf')
     ca = CourseArrangement(driver)
 
-    # add_resources_info={"cus.tel":"19877101296","cus.name":"三生三世",
-    # "cus.sex":"女","cus.last_status":"新入库","cus.wechat":"啊啊撒啥啥所",
-    # "cus.qq":"阿萨斯搜索","cus.school":"啊啊啊啊","cus.education":"本科",
-    # "cus.major":"啊啊啊啊","cus.intent":"啊啊啊啊","cus.workage":"2年","cus.salary":"啊啊啊啊啊","cus.source":"今日头条","cus.email":"啊啊啊啊啊","cus.age":"2年",
-    # "cus.eduexp":"啊啊啊","cus.experience":"三生三世",
-    # "cus.last_tracking_remark":"少时诵诗书所"}
-    #
-    # ts.do_add_resources(add_resources_info)
+    add_course_info={"start_time":"2020-05-10","end_time":"2020-06-01",
+                     "teacher":"我是谁","classroom":"教室一","classcode":"WNCDC002",
+                     "course":"第一阶段-第二周-MySQL数据库"
+                     }
 
+    ca.do_add_course(add_course_info)
+
+    query_resource_info = {'campus': '成都', 'teacher': '我是谁', 'specialty': '全部',
+                           'start_time': '', 'end_time': ''
+                           }
+
+    ca.do_query(query_resource_info)
