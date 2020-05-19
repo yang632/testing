@@ -56,12 +56,12 @@ class PublicRescources:
     def select_public_claim(self):
         self.driver.find_element_by_xpath('//*[@id="ownCusBtn"]').click()
 
-
+    #确认认领
+    def claim_enter(self):
+        self.driver.find_element_by_xpath('/html/body/div[10]/div/div/div[3]/button[2]').click()
     #执行废弃资源全条件搜索
     def do_query_public(self,query_public_info):
-        # query_public_info={
-        #     "area_value":'全部','dpt_value':'','abandoned_value':'啊啊','status_value':'搜索',
-        #     'source_value':'ss','education_value':'s'}
+
 
         self.select_public_area(query_public_info['area_value'])
         self.select_public_dpt(query_public_info['dpt_value'])
@@ -78,5 +78,7 @@ class PublicRescources:
             old_num=10
         self.driver.find_element_by_xpath(f'//*[@id="public-pool-table"]/tbody/tr[{old_num}]/td[1]/input').click()
         self.select_public_claim()
+        self.claim_enter()
+
 
 
