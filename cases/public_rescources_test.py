@@ -17,7 +17,7 @@ class PublicRescourcesTest(unittest.TestCase):
     query_public_info=Utility.tran_tuple(contents[0])
     #获取废弃的数据
     claim_public_info=Utility.tran_tuple(contents[1])
-    print(query_public_info)
+    # print(claim_public_info)
 
 
     @classmethod
@@ -36,7 +36,7 @@ class PublicRescourcesTest(unittest.TestCase):
         pass
     #测试搜索
     @parameterized.expand(query_public_info)
-    # @unittest.skip("忽略搜索")
+    @unittest.skip("忽略搜索")
     def test_do_query_public(self,area_value,dpt_value,abandoned_value,status_value,source_value ,\
             education_value,name_value,expect):
         query_public_info={"area_value":area_value,'dpt_value':dpt_value,'abandoned_value':abandoned_value,'status_value':status_value,
@@ -54,5 +54,29 @@ class PublicRescourcesTest(unittest.TestCase):
             actual='query-fail'
 
         self.assertEqual(actual,expect)
+
+
+    #测试认领
+    @parameterized.expand(claim_public_info)
+    def test_do_claim_rescources(self,temp,expect):
+
+        #获取此生页面显示数量
+        time.sleep(2)
+        old_num=Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+
+        self.pu.do_claim_rescources(int(old_num))
+
+
+        #点击默认搜索
+        self.driver.refresh()
+        self.pu.click_public_query()
+        time.sleep(2)
+        new_num = Service.get_num(self.driver, '//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
+
+        if int(old_num) - int(new_num) == 1:
+                actual='claim-success'
+        else:
+            actual='claim-fail'
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
