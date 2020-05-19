@@ -12,16 +12,36 @@ from tools.service import Service
 class PublicRescources:
 
     def __init__(self,driver):
-
         self.driver=driver
         self.driver.find_element_by_partial_link_text('资源管理').click()
         self.driver.find_element_by_partial_link_text('公共资源').click()
 
-    #选择下拉框,需传入xpath与值
-    def select_ele(self,xpath,select_ele_value):
+    #选择区域
+    def select_public_area(self,area_value):
+        area_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/select[1]')
+        Service.select_text(area_ele,area_value)
 
-        ele_select=self.driver.find_element(By.xpath,xpath)
-        Service.select_text(ele_select,select_ele_value)
+    #选择部门
+    def select_public_dpt(self,dpt_value):
+        dpt_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/select[2]')
+        Service.select_text(dpt_ele,dpt_value)
+
+    #选择最后废弃人
+    def select_public_last_abandoned(self,last_abandoned_value):
+        last_abandoned_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/select[3]')
+        Service.select_text(last_abandoned_ele,last_abandoned_value)
+    #选择状态
+    def select_public_last_status(self,last_status_value):
+        last_status_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/select[4]')
+        Service.select_text(last_status_ele,last_status_value)
+    #选择来源
+    def select_public_source(self,public_source_value):
+        public_source_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/select[5]')
+        Service.select_text(public_source_ele,public_source_value)
+    #选择学历
+    def select_public_education(self,public_education_value):
+        public_education_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/select[6]')
+        Service.select_text(public_education_ele,public_education_value)
 
     #输入姓名电话或者qq
     def input_public_name(self,public_name_value):
@@ -31,13 +51,32 @@ class PublicRescources:
     #点击查询
     def click_public_query(self):
         self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/button').click()
-    #执行查询
-    def do_query_public_resource(self):
-        #选择区域
-        self.select_ele(area_xpath,area_value)
-        #选择部门
-        #选择最后废弃人
-        #选择状态
-        #选择来源
-        #选择学历
-        #
+
+    #点击认领
+    def select_public_claim(self):
+        self.driver.find_element_by_xpath('//*[@id="ownCusBtn"]').click()
+
+
+    #执行废弃资源全条件搜索
+    def do_query_public(self,query_public_info):
+        # query_public_info={
+        #     "area_value":'全部','dpt_value':'','abandoned_value':'啊啊','status_value':'搜索',
+        #     'source_value':'ss','education_value':'s'}
+
+        self.select_public_area(query_public_info['area_value'])
+        self.select_public_dpt(query_public_info['dpt_value'])
+        self.select_public_last_abandoned(query_public_info['abandoned_value'])
+        self.select_public_last_status(query_public_info['status_value'])
+        self.select_public_source(query_public_info['source_value'])
+        self.select_public_education(query_public_info['education_value'])
+        self.input_public_name(query_public_info['name_value'])
+        self.click_public_query()
+
+    #随机认领资源
+    def claim_rescources(self,old_num):
+        if old_num > 10:
+            old_num=10
+        self.driver.find_element_by_xpath(f'//*[@id="public-pool-table"]/tbody/tr[{old_num}]/td[1]/input').click()
+        self.select_public_claim()
+
+
