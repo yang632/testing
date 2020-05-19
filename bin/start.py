@@ -14,7 +14,6 @@ class Start:
         #创建加载器
         loader = unittest.TestLoader()
         names = Utility.get_str('../conf/yang/test.conf')
-        print(names)
 
         tests=loader.loadTestsFromNames(names)
 
