@@ -109,6 +109,7 @@ class CourseArrangement:
 if __name__ == '__main__':
     driver = Service.get_driver('../conf/huang/base.conf')
     driver.implicitly_wait(10)
+    # 忽略登录
     Service.ignor_login_decrypt(driver, '../conf/huang/base.conf')
     ca = CourseArrangement(driver)
 
