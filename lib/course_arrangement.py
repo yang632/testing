@@ -7,6 +7,10 @@ from tools.service import Service
 
 class CourseArrangement:
 
+    query_all_course_info = {'campus': '全部', 'teacher': '全部', 'specialty': '全部',
+                             'start_time': '', 'end_time': ''
+                             }
+
     def __init__(self,driver):
             self.driver = driver
             # 点击教学管理
@@ -113,11 +117,15 @@ if __name__ == '__main__':
     Service.ignor_login_decrypt(driver, '../conf/huang/base.conf')
     ca = CourseArrangement(driver)
 
-    query_resource_info = {'campus': '成都', 'teacher': '我是谁', 'specialty': '全部',
+    query_course_info = {'campus': '成都', 'teacher': '我是谁', 'specialty': '全部',
                            'start_time': '', 'end_time': ''
                            }
 
-    ca.do_query(query_resource_info)
+    query_all_course_info = {'campus': '全部', 'teacher': '全部', 'specialty': '全部',
+                           'start_time': '', 'end_time': ''
+                           }
+
+    ca.do_query(query_course_info)
 
     add_course_info={"start_time":"2020-05-10","end_time":"2020-06-01",
                      "teacher":"我是谁","classroom":"教室一","classcode":"WNCDC002",
