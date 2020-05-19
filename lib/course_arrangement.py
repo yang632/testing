@@ -2,6 +2,8 @@
 #@Time      :2020/5/18
 #@Author    :hxy
 #@File      :course_arrangement.py
+import random
+
 from tools.service import Service
 
 
@@ -17,6 +19,9 @@ class CourseArrangement:
             self.driver.find_element_by_xpath('//*[@id="nav2"]/div[7]/div[1]/a').click()
             # 点击课程安排
             self.driver.find_element_by_xpath('//*[@id="list-11"]/div/ul/li[1]/a').click()
+
+# 查询
+# -------------------------------------------------------------------------------------------
 
     # 点击查询
     def click_query(self):
@@ -56,32 +61,13 @@ class CourseArrangement:
         self.query_end_time(query_course_info['end_time'])
         self.click_query()
 
+# 排课
+# --------------------------------------------------------------------------------------------
+
     # 点击排课
     def click_new_course(self):
         # 点击排课按钮
         self.driver.find_element_by_css_selector("button.btn:nth-child(11)").click()
-
-    #开始时间
-    def start_time(self,start_time_value):
-        start_time_ele=self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[1]/input')
-        Service.send_input(start_time_ele,start_time_value)
-
-    # document.querySelector("#addcourse > div.row > div:nth-child(1) > input")
-
-    # 输入新增排课开始时间
-    def input_start_time(self, starttime):
-        js = 'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").removeAttribute("readonly");'  # js去掉readonly属性
-        self.driver.execute_script(js)
-        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").value="{starttime}"'  # js添加时间
-        self.driver.execute_script(js_value)
-
-    # document.querySelector("#addcourse > div.row > div:nth-child(2) > input")
-    # 输入新增排课结束时间
-    def input_end_time(self, endtime):
-        js = 'document.querySelector("#addcourse > div.row > div:nth-child(2) > input").removeAttribute("readonly");'  # js去掉readonly属性
-        self.driver.execute_script(js)
-        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(2) > input").value="{endtime}"'  # js添加时间
-        self.driver.execute_script(js_value)
 
     # 选择讲师
     def select_teacher(self, teacher_value):
@@ -115,14 +101,34 @@ class CourseArrangement:
     def do_add_course(self,add_course_info):
         self.click_query()
         self.click_new_course()
-        self.input_start_time(add_course_info['start_time'])
-        self.input_end_time(add_course_info['end_time'])
+        # 输入开始时间
+        Service.input_time(self.driver,add_course_info['start_js'],add_course_info['start_time'])
+        Service.input_time(self.driver,add_course_info['end_js'],add_course_info['end_time'])
         self.select_teacher(add_course_info['teacher'])
         self.select_classroom(add_course_info['classroom'])
         self.select_classcode(add_course_info['classcode'])
         self.select_course(add_course_info['course'])
         self.click_save()
         self.click_confirm()
+
+# 修改排课
+# ---------------------------------------------------------------------------------------------
+
+    # 点击修改按钮
+    def click_alter(self):
+        # 随机修改
+        # 获取班级总数
+        num = Service.get_num(driver, '//*[@id="course"]/div[2]/div[2]/div[4]/div[1]/span[1]')
+        # 随机选择课程
+        classnum = random.randint(1, int(num))
+        self.driver.find_element_by_xpath(f'//*[@id="course_table"]/tbody/tr[{classnum}]/td[9]/button').click()
+
+    # 输入开始时间
+    def start_time(self):
+        Service.input_time(self.driver,alter_course_info['satrt_js'],alter_course_info['start_time'])
+
+
+
 
 
 if __name__ == '__main__':
@@ -138,9 +144,16 @@ if __name__ == '__main__':
 
     ca.do_query(query_course_info)
 
-    add_course_info={"start_time":"2020-05-10","end_time":"2020-06-01",
+    add_course_info={"start_js":"document.querySelector(\"#addcourse > div.row > div:nth-child(1) > input\")",
+                     "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
+                     "start_time":"2020-05-10","end_time":"2020-06-01",
                      "teacher":"我是谁","classroom":"教室一","classcode":"WNCDC002",
                      "course":"第一阶段-第二周-MySQL数据库"
                      }
 
     ca.do_add_course(add_course_info)
+
+    alter_course_info = {"start_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(1) > input\")",
+                        "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
+                        "teacher":"阿大"
+                        }
