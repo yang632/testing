@@ -61,8 +61,6 @@ class PublicRescources:
         self.driver.find_element_by_xpath('/html/body/div[10]/div/div/div[3]/button[2]').click()
     #执行废弃资源全条件搜索
     def do_query_public(self,query_public_info):
-
-
         self.select_public_area(query_public_info['area_value'])
         self.select_public_dpt(query_public_info['dpt_value'])
         self.select_public_last_abandoned(query_public_info['abandoned_value'])

@@ -4,6 +4,7 @@
 # Email   : yang@163.com
 # Software: PyCharm
 # Time    : 2020/5/19 15:59
+import time
 import unittest
 import warnings
 from tools.service import Service
@@ -37,22 +38,21 @@ class PublicRescourcesTest(unittest.TestCase):
     @parameterized.expand(query_public_info)
     # @unittest.skip("忽略搜索")
     def test_do_query_public(self,area_value,dpt_value,abandoned_value,status_value,source_value ,\
-            education_value,name_value):
-        query_public_info={
-            "area_value":area_value,'dpt_value':dpt_value,'abandoned_value':abandoned_value,'status_value':status_value,
+            education_value,name_value,expect):
+        query_public_info={"area_value":area_value,'dpt_value':dpt_value,'abandoned_value':abandoned_value,'status_value':status_value,
             'source_value':source_value,'education_value':education_value,'name_value':name_value}
         driver=self.driver
-
         self.pu.do_query_public(query_public_info)
-
+        time.sleep(4)
         #获取页面元素
         num=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
 
+        print(num)
         if int(num) > 0:
             actual='query-success'
         else:
             actual='query-fail'
 
-
+        self.assertEqual(actual,expect)
 if __name__ == '__main__':
     unittest.main(verbosity=2)
