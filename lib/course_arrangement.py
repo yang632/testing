@@ -76,11 +76,11 @@ class CourseArrangement:
         self.driver.execute_script(js_value)
 
     # document.querySelector("#addcourse > div.row > div:nth-child(2) > input")
-    # 输入新增排课开始时间
+    # 输入新增排课结束时间
     def input_end_time(self, endtime):
-        js = 'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").removeAttribute("readonly");'  # js去掉readonly属性
+        js = 'document.querySelector("#addcourse > div.row > div:nth-child(2) > input").removeAttribute("readonly");'  # js去掉readonly属性
         self.driver.execute_script(js)
-        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").value="{endtime}"'  # js添加时间
+        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(2) > input").value="{endtime}"'  # js添加时间
         self.driver.execute_script(js_value)
 
     # 选择讲师
@@ -107,7 +107,9 @@ class CourseArrangement:
     def click_save(self):
         self.driver.find_element_by_xpath('//*[@id="course-add"]/div/div/div[3]/button').click()
 
-
+    # 点击确定
+    def click_confirm(self):
+        self.driver.find_element_by_xpath('/html/body/div[16]/div/div/div[3]/button').click()
 
     #新增排课组合操作
     def do_add_course(self,add_course_info):
@@ -120,6 +122,7 @@ class CourseArrangement:
         self.select_classcode(add_course_info['classcode'])
         self.select_course(add_course_info['course'])
         self.click_save()
+        self.click_confirm()
 
 
 if __name__ == '__main__':
