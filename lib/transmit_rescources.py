@@ -3,6 +3,7 @@
 # Author  : yang
 # Email   : yang@163.com
 # Software: PyCharm
+<<<<<<< HEAD
 # Time    : 2020/5/19 20:22
 
 #转交资源
@@ -84,3 +85,6 @@ class TransmitRescources:
 
         #点击提交
         self.click_submit()
+=======
+# Time    : 2020/5/19 20:22
+>>>>>>> eb6c6fe576a75db31ffad982cc353d6f1b9efb50
