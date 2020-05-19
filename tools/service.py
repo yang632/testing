@@ -56,7 +56,7 @@ class Service:
         #执行登录
 
         from lib.login import Login
-        Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'])
+        Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'],path)
         time.sleep(2)
         #点击解密按钮
         driver.find_element_by_id('btn-decrypt').click()
