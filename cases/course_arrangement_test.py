@@ -39,7 +39,7 @@ class CouresArrangementTest(unittest.TestCase):
 
     #测试增加
     @parameterized.expand(add_course_info)
-    def test_add_course(self,start_time,end_time,teacher,classroom,classcode,course):
+    def test_add_course(self,start_time,end_time,teacher,classroom,classcode,course,expect):
         add_course_info = {"start_time":start_time,"end_time":end_time,"teacher":teacher,
                            "classroom":classroom,"classcode":classcode,"course":course}
 
@@ -47,6 +47,29 @@ class CouresArrangementTest(unittest.TestCase):
 
 #       执行测试后搜索
         self.ca.do_query(self.ca.query_all_course_info)
+#         // *[ @ id = "course_table"] / tbody / tr[1]
+        teacher_list=Service.get_page_ele(self.driver,'//*[@id="course_table"]/tbody/tr[1]/td[1]')
+        if teacher in teacher_list:
+            actual='add-success'
+        else:
+            actual='add-fail'
+        self.assertEqual(actual,expect)
+
+    # 测试查询
+    @parameterized.expand(query_coure_info)
+    def test_query_coure(self,campus,teacher,speialty,start_tiame,end_tiame,expect):
+        query_all_course_info = {'campus':campus, 'teacher':teacher, 'specialty': speialty,
+                                 'start_time': start_tiame, 'end_time': end_tiame
+                                 }
+        self.ca.do_query(query_all_course_info)
+        query_num=Service.get_num(self.driver,'*[@id="course"]/div[2]/div[2]/div[4]/div[1]/span[1]')
+
+        if int(query_num) > 0:
+            actual='query-success'
+        else:
+            actual = 'query-fail'
+
+        self.assertEqual(actual,expect)
 
 
 if __name__ == '__main__':
