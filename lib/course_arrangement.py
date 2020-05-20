@@ -146,9 +146,27 @@ class CourseArrangement:
         classcode_ele = self.driver.find_element_by_xpath('//*[@id="modifyCourseForm"]/div/div/div[5]/select')
         Service.select_text(classcode_ele,classcode_value)
 
-    
-    
+    # 修改课程
+    def alter_course(self,course_value):
+        course_ele = self.driver.find_element_by_xpath('//*[@id="modifyCourseForm"]/div/div/div[6]/select')
+        Service.select_text(course_ele,course_value)
 
+    # 点击保存
+    def click_alter_save(self):
+        self.driver.find_element_by_xpath('//*[@id="modifyCourse"]/div/div/div[2]/button').click()
+
+    def do_alter_course(self,alter_course_info):
+        self.alter_start_time()
+        self.alter_end_time()
+        self.alter_teacher(alter_course_info['teacher'])
+        self.alter_classroom(alter_course_info['classroom'])
+        self.alter_classcode(alter_course_info['calsscode'])
+        self.alter_course(alter_course_info['course'])
+        self.click_alter_save()
+
+
+
+# -------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
     driver = Service.get_driver('../conf/huang/base.conf')
@@ -161,7 +179,7 @@ if __name__ == '__main__':
                            'start_time': '', 'end_time': ''
                            }
 
-    ca.do_query(query_course_info)
+    # ca.do_query(query_course_info)
 
     add_course_info={"start_js":"document.querySelector(\"#addcourse > div.row > div:nth-child(1) > input\")",
                      "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
@@ -170,9 +188,11 @@ if __name__ == '__main__':
                      "course":"第一阶段-第二周-MySQL数据库"
                      }
 
-    ca.do_add_course(add_course_info)
+    # ca.do_add_course(add_course_info)
 
     alter_course_info = {"start_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(1) > input\")",
                         "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
                         "teacher":"阿大"
                         }
+
+    ca.do_alter_course(alter_course_info)
