@@ -2,6 +2,8 @@
 #@Time      :2020/5/20
 #@Author    :hxy
 # @File      :teacher_on_duty.py：教师值班
+import random
+
 from tools.service import Service
 
 
@@ -14,6 +16,8 @@ class TeacherOnDuty:
         # 点击教师值班
         self.driver.find_element_by_xpath('//*[@id="list-11"]/div/ul/li[3]/a').click()
 
+# 新增值班
+# -------------------------------------------------------------------------------------------------
     # 点击指定值班
     def click_duty(self):
         self.driver.find_element_by_xpath('//*[@id="queryAera"]/div/button[2]').click()
@@ -43,6 +47,53 @@ class TeacherOnDuty:
         self.click_seve()
         self.click_confirm()
 
+# 修改值班
+# ------------------------------------------------------------------------------------------------
+
+#     点击修改
+    def click_alter(self):
+        # 随机修改
+        # 获取纪录总数
+        num = Service.get_num(driver, '//*[@id="content"]/div[2]/div[2]/div[2]/div[4]/div[1]/span[1]')
+        # 随机选择值班
+        dutynum = random.randint(1, int(num))
+        print("num",num,"\tdutynum",dutynum)
+        self.driver.find_element_by_xpath(f'//*[@id="duty_table"]/tbody/tr[{dutynum}]/td[10]/button[2]').click()
+        # // *[ @ id = "duty_table"] / tbody / tr[1] / td[10] / button[2]
+        # //*[@id="duty_table"]/tbody/tr[2]/td[10]/button[2]
+        return dutynum
+
+    # 选择值班人
+    def alter_teacher(self,teacher_value):
+        teacher_ele = self.driver.find_element_by_xpath('//*[@id="editDuty-form"]/div/div[1]/select')
+        Service.select_text(teacher_ele,teacher_value)
+
+    # 选择值班日期
+    def alter_duty_time(self):
+        # Service.input_time(self.driver,time_js,duty_time)
+        js = 'document.querySelector("#editDuty-form > div > div:nth-child(3) > input").removeAttribute("readonly");'  # js去掉readonly属性
+        driver.execute_script(js)
+        js_value = f'document.querySelector("#editDuty-form > div > div:nth-child(3) > input").value="2020-05-20"'  # js添加时间
+        driver.execute_script(js_value)
+
+
+    # 点击保存
+    def click_alter_seve(self):
+        self.driver.find_element_by_xpath('//*[@id="editDuty-modal"]/div/div/div[3]/button').click()
+
+    # 点击确定
+    def click_alter_confirm(self):
+        self.driver.find_element_by_xpath('/html/body/div[15]/div/div/div[3]/button').click()
+
+    # 执行
+    def do_alter_duty(self,alter_duty_info):
+        self.click_alter()
+        self.alter_teacher(alter_duty_info['teacher'])
+        self.alter_duty_time()
+        self.click_alter_seve()
+        self.click_alter_confirm()
+
+
 if __name__ == '__main__':
     driver = Service.get_driver('../conf/huang/base.conf')
     driver.implicitly_wait(10)
@@ -55,4 +106,11 @@ if __name__ == '__main__':
                  "duty_time":"2020-05-20"
                  }
 
-    tod.do_add_duty(duty_info)
+    # tod.do_add_duty(duty_info)
+
+    alter_duty_info = {"teacher": "吴用",
+                       "time_js": "document.querySelector(\"#editDuty-form > div > div:nth-child(3) > input\")",
+                       "duty_time": "2020-05-19"
+                      }
+
+    tod.do_alter_duty(alter_duty_info)
