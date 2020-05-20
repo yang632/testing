@@ -18,13 +18,14 @@ class TransmitRescourcesTest(unittest.TestCase):
     #获取转交资源的测试数据
     contents = Utility.get_json('../conf/yang/public_rescources_testinfo.conf')
     transmit_info=Utility.tran_tuple(contents[2])
-    print(transmit_info)
+    # print(transmit_info)
     @classmethod
     def setUpClass(cls):
         warnings.simplefilter('ignore', ResourceWarning)
     def setUp(self):
         self.driver=Service.get_driver('../conf/yang/base.conf')
         self.driver.implicitly_wait(15)
+        self.driver.maximize_window()
         #使用管理员进行登录,进入转交责任人
         Service.ignor_login_decrypt(self.driver,'../conf/yang/base_admin.conf')
         self.tran=TransmitRescources(self.driver)
@@ -47,12 +48,12 @@ class TransmitRescourcesTest(unittest.TestCase):
         "transmit_area_value": transmit_area_value,"transmit_dpt_value": transmit_dpt_value,"transmit_empname_value": transmit_empname_value}
 
         old_num=self.tran.do_query_rescources(transmit_rescources_info)
-        print(old_num)
+        # print(old_num)
         #随机执行分配
         self.tran.do_transmit_rescources(int(old_num),transmit_rescources_info)
         # #再次执行搜索
         new_num = self.tran.do_query_rescources(transmit_rescources_info)
-        print(new_num)
+        # print(new_num)
         time.sleep(2)
         if int(old_num) - int(new_num):
             actual='transmit-success'

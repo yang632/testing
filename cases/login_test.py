@@ -24,6 +24,7 @@ class LoginTest(unittest.TestCase):
     def setUp(self):
         self.driver=Service.get_driver('../conf/yang/base.conf')
         self.driver.implicitly_wait(15)
+        self.driver.maximize_window()
         from lib.login import Login
         self.login=Login(self.driver)
     def tearDown(self):
@@ -47,7 +48,7 @@ class LoginTest(unittest.TestCase):
         else:
             actual="login-fail"
             time.sleep(1)
-            Utility.get_error_png(self.driver)
+            # Utility.get_error_png(self.driver)
 
         self.assertEqual(actual,expect)
 if __name__ == '__main__':

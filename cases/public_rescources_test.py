@@ -26,6 +26,7 @@ class PublicRescourcesTest(unittest.TestCase):
     def setUp(self):
         self.driver=Service.get_driver('../conf/yang/base.conf')
         self.driver.implicitly_wait(15)
+        self.driver.maximize_window()
         Service.ignor_login_decrypt(self.driver,'../conf/yang/base.conf')
         from lib.public_rescources import PublicRescources
         self.pu=PublicRescources(self.driver)
@@ -36,7 +37,7 @@ class PublicRescourcesTest(unittest.TestCase):
         pass
     #测试搜索
     @parameterized.expand(query_public_info)
-    @unittest.skip("忽略搜索")
+    # @unittest.skip("忽略搜索")
     def test_do_query_public(self,area_value,dpt_value,abandoned_value,status_value,source_value ,\
             education_value,name_value,expect):
         query_public_info={"area_value":area_value,'dpt_value':dpt_value,'abandoned_value':abandoned_value,'status_value':status_value,
@@ -66,7 +67,6 @@ class PublicRescourcesTest(unittest.TestCase):
 
         self.pu.do_claim_rescources(int(old_num))
 
-
         #点击默认搜索
         self.driver.refresh()
         self.pu.click_public_query()
@@ -77,6 +77,7 @@ class PublicRescourcesTest(unittest.TestCase):
                 actual='claim-success'
         else:
             actual='claim-fail'
+        self.assertEqual(actual,expect)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
