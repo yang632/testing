@@ -23,6 +23,7 @@ class TechnicalInterview:
         # 随机选择学生
         studentnum = random.randint(1, int(num))
         self.driver.find_element_by_xpath(f'//*[@id="stuInfo_table"]/tbody/tr[{studentnum}]/td[9]/button').click()
+        return studentnum
 
     # 选择面试结果
     def select_result(self,result_value):
@@ -45,7 +46,7 @@ class TechnicalInterview:
     # 执行面试
     def do_interview(self,add_interview_info):
         self.click_interview()
-        self.select_result(add_interview_info["result"])
+        self.select_result(add_interview_info["outcome"])
         self.input_evaluate(add_interview_info["evaluate"])
         self.click_save()
         self.click_confirm()
@@ -59,5 +60,5 @@ if __name__ == '__main__':
     Service.ignor_login_decrypt(driver, '../conf/huang/base.conf')
     ti = TechnicalInterview(driver)
 
-    add_interview_info = {"result":"优","evaluate":"基础知识掌握牢固"}
+    add_interview_info = {"outcome":"优","evaluate":"基础知识掌握牢固"}
     ti.do_interview(add_interview_info)
