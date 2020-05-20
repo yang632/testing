@@ -124,14 +124,19 @@ class CourseArrangement:
         self.driver.find_element_by_xpath(f'//*[@id="course_table"]/tbody/tr[{classnum}]/td[9]/button').click()
 
     # 输入开始时间
-    def start_time(self):
+    def alter_start_time(self):
         Service.input_time(self.driver,alter_course_info['satrt_js'],alter_course_info['start_time'])
 
     #输入结束时间
-    def end_time(self):
+    def alter_end_time(self):
         Service.input_time(self.driver,alter_course_info['end_js'],alter_course_info['end_time'])
 
+    # 修改讲师
+    def alter_teacher(self,teacher_value):
+        teacher_ele = self.driver.find_element_by_xpath('//*[@id="modifyCourseForm"]/div/div/div[3]/select')
+        Service.select_text(teacher_ele,teacher_value)
 
+    
 
 
 
