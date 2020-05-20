@@ -10,7 +10,7 @@
 #
 # driver=webdriver.Edge()
 
-<<<<<<< HEAD
-# driver=webdriver.Edge()
-=======
->>>>>>> f3f751a66f81df62ed4ecb1fdd86f9cc888c31f2
+# <<<<<<< HEAD
+# # driver=webdriver.Edge()
+# =======
+# >>>>>>> f3f751a66f81df62ed4ecb1fdd86f9cc888c31f2
