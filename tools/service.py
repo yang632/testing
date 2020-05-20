@@ -24,6 +24,12 @@ class Service:
         # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
         driver.get(url)
 
+    # 打开模块界面
+    @classmethod
+    def open_module(cls, driver, name):
+        driver.find_element_by_link_text('学员管理').click()
+        driver.find_element_by_link_text(name).click()
+
     #输入内容
     @classmethod
     def send_input(cls, ele, value):
