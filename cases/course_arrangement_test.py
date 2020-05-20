@@ -5,7 +5,6 @@
 
 import unittest
 import warnings
-
 from tools.service import Service
 from tools.utility import Utility
 from parameterized import parameterized
@@ -89,6 +88,6 @@ class CouresArrangementTest(unittest.TestCase):
             actual='add-fail'
         self.assertEqual(actual,expect)
        
-       
+
 if __name__ == '__main__':
     pass
