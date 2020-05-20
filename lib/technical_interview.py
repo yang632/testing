@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #@Time      :2020/5/19
 #@Author    :hxy
-#@File      :technical_interview.py
+#@File      :technical_interview.py：技术面试
 import random
 
 from tools.service import Service
