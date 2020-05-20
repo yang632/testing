@@ -123,6 +123,7 @@ class CourseArrangement:
         # 随机选择课程
         classnum = random.randint(1, 10)
         self.driver.find_element_by_xpath(f'//*[@id="course_table"]/tbody/tr[{classnum}]/td[9]/button').click()
+        return classnum
 
     # 输入开始时间
     def alter_start_time(self,start_js,start_time):
