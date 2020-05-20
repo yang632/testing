@@ -75,7 +75,7 @@ class PublicRescourcesTest(unittest.TestCase):
 
         if int(old_num) - int(new_num) == 1:
                 actual='claim-success'
-        else:
+        else: 
             actual='claim-fail'
         self.assertEqual(actual,expect)
 
