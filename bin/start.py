@@ -14,15 +14,15 @@ class Start:
         #创建加载器
         loader = unittest.TestLoader()
         names = Utility.get_str('../conf/yang/test.conf')
-        print(names)
-
-        tests=loader.loadTestsFromNames(names)
-
+        huangnames = Utility.get_str('../conf/huang/test.conf')
+        print(huangnames)
+        tests=loader.loadTestsFromNames(huangnames)
         suit.addTests(tests)
         with open (f"..//reports/{Utility.ctime()}.html","w") as file:
             from HTMLTestRunner import HTMLTestRunner
             runner=HTMLTestRunner(stream=file,verbosity=2)
             runner.run(suit)
+
 if __name__ == '__main__':
     Start().start()
 

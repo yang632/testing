@@ -62,7 +62,7 @@ class Service:
         #执行登录
         from lib.login import Login
         Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'],path)
-        time.sleep(2)
+        time.sleep(1)
         #点击解密按钮
         driver.find_element_by_id('btn-decrypt').click()
         # 输入密码
@@ -106,15 +106,13 @@ class Service:
         return re.findall(r"总共 (.*?)条记录",content)[0]
 
 
-
-
-
-
-
-
-
-
-
+    # 输入时间
+    @classmethod
+    def input_time(cls,driver,jspath,time):
+        js = f'{jspath}.removeAttribute("readonly");'  # js去掉readonly属性
+        driver.execute_script(js)
+        js_value = f'{jspath}.value="{time}"'  # js添加时间
+        driver.execute_script(js_value)
 
 
 

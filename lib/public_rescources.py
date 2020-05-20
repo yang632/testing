@@ -4,6 +4,8 @@
 # Email   : yang@163.com
 # Software: PyCharm
 # Time    : 2020/5/19 11:43
+import time
+
 from selenium.webdriver.common.by import By
 
 from tools.service import Service
@@ -58,12 +60,12 @@ class PublicRescources:
 
     #确认认领
     def claim_enter(self):
-        self.driver.find_element_by_xpath('/html/body/div[10]/div/div/div[3]/button[2]').click()
+        self.driver.find_element_by_css_selector('body > div.bootbox.modal.fade.mydialog.in > \
+        div > div > div.modal-footer > button.btn.btn-primary').click()
     #执行废弃资源全条件搜索
     def do_query_public(self,query_public_info):
-
-
         self.select_public_area(query_public_info['area_value'])
+        time.sleep(1)
         self.select_public_dpt(query_public_info['dpt_value'])
         self.select_public_last_abandoned(query_public_info['abandoned_value'])
         self.select_public_last_status(query_public_info['status_value'])
@@ -73,11 +75,13 @@ class PublicRescources:
         self.click_public_query()
 
     #随机认领资源
-    def claim_rescources(self,old_num):
+    def do_claim_rescources(self,old_num):
         if old_num > 10:
             old_num=10
         self.driver.find_element_by_xpath(f'//*[@id="public-pool-table"]/tbody/tr[{old_num}]/td[1]/input').click()
         self.select_public_claim()
+        import time
+        time.sleep(2)
         self.claim_enter()
 
 
