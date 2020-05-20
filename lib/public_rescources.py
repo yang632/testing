@@ -4,6 +4,8 @@
 # Email   : yang@163.com
 # Software: PyCharm
 # Time    : 2020/5/19 11:43
+import time
+
 from selenium.webdriver.common.by import By
 
 from tools.service import Service
@@ -63,6 +65,7 @@ class PublicRescources:
     #执行废弃资源全条件搜索
     def do_query_public(self,query_public_info):
         self.select_public_area(query_public_info['area_value'])
+        time.sleep(1)
         self.select_public_dpt(query_public_info['dpt_value'])
         self.select_public_last_abandoned(query_public_info['abandoned_value'])
         self.select_public_last_status(query_public_info['status_value'])
