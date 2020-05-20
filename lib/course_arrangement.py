@@ -136,11 +136,18 @@ class CourseArrangement:
         teacher_ele = self.driver.find_element_by_xpath('//*[@id="modifyCourseForm"]/div/div/div[3]/select')
         Service.select_text(teacher_ele,teacher_value)
 
+    # 修改教室
     def alter_classroom(self,classroom_value):
         classroom_ele = self.driver.find_element_by_xpath('//*[@id="modifyCourseForm"]/div/div/div[4]/select')
         Service.select_text(classroom_ele,classroom_value)
 
+    # 修改班号
+    def alter_classcode(self,classcode_value):
+        classcode_ele = self.driver.find_element_by_xpath('//*[@id="modifyCourseForm"]/div/div/div[5]/select')
+        Service.select_text(classcode_ele,classcode_value)
 
+    
+    
 
 
 if __name__ == '__main__':
