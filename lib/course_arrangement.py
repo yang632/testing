@@ -124,17 +124,12 @@ class CourseArrangement:
         self.driver.find_element_by_xpath(f'//*[@id="course_table"]/tbody/tr[{classnum}]/td[9]/button').click()
 
     # 输入开始时间
-<<<<<<< HEAD
     def alter_start_time(self):
         Service.input_time(self.driver,alter_course_info['satrt_js'],alter_course_info['start_time'])
 
     #输入结束时间
     def alter_end_time(self):
         Service.input_time(self.driver,alter_course_info['end_js'],alter_course_info['end_time'])
-=======
-    def start_time(self):
-        Service.input_time(self.driver,alter_course_info['satrt_js'],alter_course_info['start_time'])
->>>>>>> c5340b1d5e58642b33a9b03c756a67330cf0fa1a
 
     # 修改讲师
     def alter_teacher(self,teacher_value):
