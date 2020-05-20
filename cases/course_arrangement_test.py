@@ -49,7 +49,6 @@ class CouresArrangementTest(unittest.TestCase):
 
 #       执行测试后搜索
         self.ca.do_query(self.ca.query_all_course_info)
-#         // *[ @ id = "course_table"] / tbody / tr[1]
         teacher_list=Service.get_page_ele(self.driver,'//*[@id="course_table"]/tbody/tr[1]/td[1]')
         if teacher in teacher_list:
             actual='add-success'
@@ -82,12 +81,14 @@ class CouresArrangementTest(unittest.TestCase):
 
         classnum = self.ca.click_alter()
 
-        # if  > 0:
-        #     actual='query-success'
-        # else:
-        #     actual = 'query-fail'
+        teacher_list=Service.get_page_ele(self.driver,'//*[@id="course_table"]/tbody/tr[1]/td[1]')
 
-        # self.assertEqual(actual,expect)
-
+        if teacher in teacher_list:
+            actual='add-success'
+        else:
+            actual='add-fail'
+        self.assertEqual(actual,expect)
+       
+       
 if __name__ == '__main__':
     pass
