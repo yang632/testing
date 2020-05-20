@@ -4,3 +4,7 @@
 # Email   : yang@163.com
 # Software: PyCharm
 # Time    : 2020/5/16 15:50
+from selenium import webdriver
+
+driver=webdriver.Firefox()
+driver.find_element_by_css_selector()
