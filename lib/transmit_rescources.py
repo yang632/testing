@@ -7,8 +7,6 @@
 
 #转交资源
 import time
-
-from selenium.webdriver.common.by import By
 from tools.service import Service
 class TransmitRescources:
 
@@ -43,6 +41,7 @@ class TransmitRescources:
         Service.send_input(transmit_name_ele,transmit_name_value)
     # 点击搜索
     def click_transmit_query(self):
+
         self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div[1]/button').click()
 
 
@@ -50,6 +49,8 @@ class TransmitRescources:
     def get_random_rescources(self,old_num):
         if old_num > 10:
             old_num = 10
+        from tools.utility import Utility
+        old_num= Utility.get_random_num(1,old_num)
         self.driver.find_element_by_xpath(f'//*[@id="transmit-table"]/tbody/tr[{old_num}]/td[1]/input').click()
     # 选择转交区域
     def select_transmit_area(self, transmit_area_value):
@@ -67,11 +68,20 @@ class TransmitRescources:
 
     #点击提交
     def click_transmit_commit(self):
-        self.driver.find_element_by_xpath('//*[@id="Submit"]').click()
+        self.driver.execute_script('window.scrollBy(0,-100)')
+        self.driver.find_element_by_css_selector('#Submit').click()
 
-    #点击提交
-    def click_submit(self):
-        self.driver.find_element_by_xpath('//*[@id="Submit"]').click()
+    #点击确认toCompleteTheConfirmation
+    def click_submit_enter(self):
+        self.driver.find_element_by_css_selector('body > div.bootbox.modal.fade.mydialog.in > div > div > div.modal-footer > button.btn.btn-primary').click()
+
+    #转交资源完成确认
+    def click_complete_confirmation_enter(self):
+        time.sleep(1)
+        self.driver.find_element_by_xpath('/html/body/div[10]/div/div/div[3]/button').click()
+
+
+
 
     #执行资源搜索
     def do_query_rescources(self,transmit_rescources_info):
@@ -81,9 +91,10 @@ class TransmitRescources:
         self.select_empname(transmit_rescources_info['empname_text_value'])
         self.select_transmit_status(transmit_rescources_info['status_text_value'])
         self.select_transmit_source(transmit_rescources_info['source_text_value'])
-        self.input_transmit_name(transmit_rescources_info['name_text_value'])
+
+        # self.input_transmit_name(transmit_rescources_info['name_text_value'])
         self.click_transmit_query()
-        time.sleep(3)
+        time.sleep(2)
         #获取此时数量
         return Service.get_num(self.driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
 
@@ -95,6 +106,8 @@ class TransmitRescources:
         self.select_transmit_area(transmit_rescources_info['transmit_area_value'])
         self.select_transmit_dpt(transmit_rescources_info['transmit_dpt_value'])
         self.select_transmit_empname(transmit_rescources_info['transmit_empname_value'])
-        self.click_submit()
+        self.click_transmit_commit()
+        self.click_submit_enter()
+        self.click_complete_confirmation_enter()
 
 

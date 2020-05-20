@@ -4,6 +4,7 @@
 # Email   : yang@163.com
 # Software: PyCharm
 # Time    : 2020/5/19 21:01
+import time
 import unittest
 import warnings
 from parameterized import parameterized
@@ -48,18 +49,17 @@ class TransmitRescourcesTest(unittest.TestCase):
         old_num=self.tran.do_query_rescources(transmit_rescources_info)
         print(old_num)
         #随机执行分配
-        # self.tran.do_transmit_rescources(int(old_num),transmit_rescources_info)
+        self.tran.do_transmit_rescources(int(old_num),transmit_rescources_info)
         # #再次执行搜索
-        # new_num = self.tran.do_query_rescources(transmit_rescources_info)
+        new_num = self.tran.do_query_rescources(transmit_rescources_info)
+        print(new_num)
+        time.sleep(2)
+        if int(old_num) - int(new_num):
+            actual='transmit-success'
+        else:
+            actual='transmit-fail'
 
-
-
-        # if int(old_num) - int(new_num):
-        #     actual='transmit-success'
-        # else:
-        #     actual='transmit-fail'
-
-        # self.assertEqual(actual,expect)
+        self.assertEqual(actual,expect)
 
 
 if __name__ == '__main__':
