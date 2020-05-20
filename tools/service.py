@@ -108,21 +108,6 @@ class Service:
         js_value = f'{jspath}.value="{time}"'  # js添加时间
         driver.execute_script(js_value)
 
-# document.querySelector("#modifyCourseForm > div > div > div:nth-child(1) > input")
-
-  # 输入新增排课开始时间
-    def input_start_time(self, starttime):
-        js = 'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").removeAttribute("readonly");'  # js去掉readonly属性
-        self.driver.execute_script(js)
-        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").value="{starttime}"'  # js添加时间
-        self.driver.execute_script(js_value)
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':
