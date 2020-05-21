@@ -18,7 +18,6 @@ class Start:
 
         names = Utility.get_str('../conf/yang/test.conf')
 
-
         huangnames = Utility.get_str('../conf/huang/test.conf')
         pengnames=Utility.get_str('../conf/peng/test.conf')
         # print(pengnames)
@@ -27,6 +26,7 @@ class Start:
         # huangnames = Utility.get_str('../conf/huang/test.conf')
         # print(huangnames)
         # names.extend(huangnames)
+
         # tests=loader.loadTestsFromNames(names)
 
         tests=loader.loadTestsFromNames(names)
