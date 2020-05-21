@@ -13,7 +13,11 @@ class Start:
         suit=unittest.TestSuite()
         #创建加载器
         loader = unittest.TestLoader()
+
+        names = Utility.get_str('../conf/yun/test.conf')
+
         names = Utility.get_str('../conf/yang/test.conf')
+
 
         huangnames = Utility.get_str('../conf/huang/test.conf')
         pengnames=Utility.get_str('../conf/peng/test.conf')
@@ -24,6 +28,8 @@ class Start:
         # print(huangnames)
         # names.extend(huangnames)
         # tests=loader.loadTestsFromNames(names)
+
+        tests=loader.loadTestsFromNames(names)
 
         suit.addTests(tests)
         with open (f"..//reports/{Utility.ctime()}.html","w") as file:

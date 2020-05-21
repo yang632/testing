@@ -57,7 +57,7 @@ class Service:
     #登录执行,进行解密
     @classmethod
     def ignor_login_decrypt(cls,driver,path):
-        cls.open_startpage(driver,path)
+        # cls.open_startpage(driver,path)
         contents = Utility.get_json(path)
         #执行登录
         from lib.login import Login
@@ -100,12 +100,16 @@ class Service:
         return list
     #获取页面条数
     @classmethod
-    def get_num(cls,driver,traning__xpath):
-        content=driver.find_element_by_xpath(traning__xpath).text
+    def get_num(cls,driver,traning_xpath):
+        content=driver.find_element_by_xpath(traning_xpath).text
         import re
         return re.findall(r"总共 (.*?)条记录",content)[0]
 
-
+    @classmethod
+    def get_kaoqin(cls, driver, kaoqin_xpath):
+        content = driver.find_element_by_xpath(kaoqin_xpath).text
+        import re
+        return re.findall(r"(\d)", content)[0]
     # 输入时间
     @classmethod
     def input_time(cls,driver,jspath,time):
@@ -114,6 +118,24 @@ class Service:
         js_value = f'{jspath}.value="{time}"'  # js添加时间
         driver.execute_script(js_value)
 
+<<<<<<< HEAD
+# document.querySelector("#modifyCourseForm > div > div > div:nth-child(1) > input")
+
+  # 输入新增排课开始时间
+    def input_start_time(self,starttime):
+        js = 'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").removeAttribute("readonly");'  # js去掉readonly属性
+        self.driver.execute_script(js)
+        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").value="{starttime}"'  # js添加时间
+        self.driver.execute_script(js_value)
+
+
+
+
+
+
+
+=======
+>>>>>>> d60ac3b3974cb6a392c4fe251948d4ae6c2edf91
 
 
 if __name__ == '__main__':
