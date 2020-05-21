@@ -18,7 +18,18 @@ class Start:
 
         names = Utility.get_str('../conf/yang/test.conf')
 
+<<<<<<< HEAD
 
+=======
+        huangnames = Utility.get_str('../conf/huang/test.conf')
+        pengnames=Utility.get_str('../conf/peng/test.conf')
+        print(pengnames)
+        tests=loader.loadTestsFromNames(pengnames)
+
+        # huangnames = Utility.get_str('../conf/huang/test.conf')
+        # print(huangnames)
+        # names.extend(huangnames)
+>>>>>>> d60ac3b3974cb6a392c4fe251948d4ae6c2edf91
         tests=loader.loadTestsFromNames(names)
 
         suit.addTests(tests)

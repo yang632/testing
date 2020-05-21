@@ -30,7 +30,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     #获取修改资源
     edit_rescources_info=Utility.tran_tuple(contents[5])
-    print(edit_rescources_info)
+    # print(edit_rescources_info)
 
     @classmethod
     def setUpClass(cls):
@@ -38,6 +38,7 @@ class TranningResourcesTest(unittest.TestCase):
     def setUp(self):
         self.driver=Service.get_driver('../conf/yang/base.conf')
         self.driver.implicitly_wait(15)
+        self.driver.maximize_window()
         from lib.training_resources import TrainingResources
         Service.ignor_login_decrypt(self.driver,'../conf/yang/base.conf')
         self.tr=TrainingResources(self.driver)
@@ -49,7 +50,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     # 测试增加
     @parameterized.expand(tranning_resources_info)
-    @unittest.skip("忽略增加")
+    # @unittest.skip("忽略增加")
     def test_add_resources(self,cus_tel,cus_name,cus_sex,cus_last_status,cus_wechat,cus_qq,
                            cus_school,cus_education,cus_major,cus_intent,cus_workage,cus_salary,
                            cus_source,cus_email,cus_age,cus_eduexp,cus_experience,cus_last_tracking_remark,expect):
@@ -78,7 +79,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     #测试搜索
     @parameterized.expand(rescoure_query_info)
-    @unittest.skip("忽略搜索")
+    # @unittest.skip("忽略搜索")
     def test_do_query(self,resource,status,source,start_time,end_time,query_name,consultant,expect):
         query_resource_info = {'resource': resource, 'status':status, 'source': source,
                                'start_time': start_time, 'end_time': end_time, 'query_name':query_name,
@@ -99,7 +100,7 @@ class TranningResourcesTest(unittest.TestCase):
 
     #测试废弃
     @parameterized.expand(discard_info)
-    @unittest.skip('忽略废弃')
+    # @unittest.skip('忽略废弃')
     def test_discard_resource(self,end,expect):
         driver=self.driver
         #获取废弃前的数量
@@ -119,11 +120,9 @@ class TranningResourcesTest(unittest.TestCase):
             actual='discard-fail'
         # print(actual)
         self.assertEqual(actual,expect)
-
-
     #测试跟踪资源
     @parameterized.expand(track_resource_info)
-    @unittest.skip('忽略跟踪资源')
+    # @unittest.skip('忽略跟踪资源')
     def test_do_track_resource(self,new_status,priority,next_time,track_keys,s_class,
                                payment_way,fee,account,amount,trade_time,expect
                                ):
@@ -131,8 +130,6 @@ class TranningResourcesTest(unittest.TestCase):
         'next_time':next_time,'track_keys':track_keys,'class':s_class,
         'payment_way':payment_way,'fee':fee,'account':account,'amount':amount,
         'trade_time':trade_time }
-
-
         #点击搜索
         self.tr.click_query()
         #获取页面上的列表个数
@@ -141,15 +138,15 @@ class TranningResourcesTest(unittest.TestCase):
         old_num=int(old_num)
         # print(old_num)
         track_resource_tel=self.tr.do_track_resource(old_num,track_resource_info)
-        print(track_resource_tel)
+        # print(track_resource_tel)
         #搜索电话号码进行断言
         time.sleep(2)
         self.driver.refresh()
         self.tr.query_input_name(track_resource_tel)
         self.tr.click_query()
-        #获取此时的电话号码信息
-        tel_list=Service.get_page_ele(self.driver,'//*[@id="personal-table"]/tbody/tr/td[6]')
-        if track_resource_tel in tel_list:
+        #获取此时的电话号码资源的状态
+        status_list=Service.get_page_ele(self.driver,'//*[@id="personal-table"]/tbody/tr/td[5]')
+        if track_resource_info['new_status'] in status_list:
             actual='track-success'
         else:
             actual='track-fail'
@@ -187,12 +184,6 @@ class TranningResourcesTest(unittest.TestCase):
             actual='edit-fail'
             Utility.get_error_png(self.driver)
         self.assertEqual(actual,expect)
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

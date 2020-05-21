@@ -24,6 +24,12 @@ class Service:
         # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
         driver.get(url)
 
+    # 打开模块界面
+    @classmethod
+    def open_module(cls, driver, name):
+        driver.find_element_by_link_text('学员管理').click()
+        driver.find_element_by_link_text(name).click()
+
     #输入内容
     @classmethod
     def send_input(cls, ele, value):
@@ -112,6 +118,7 @@ class Service:
         js_value = f'{jspath}.value="{time}"'  # js添加时间
         driver.execute_script(js_value)
 
+<<<<<<< HEAD
 # document.querySelector("#modifyCourseForm > div > div > div:nth-child(1) > input")
 
   # 输入新增排课开始时间
@@ -127,6 +134,8 @@ class Service:
 
 
 
+=======
+>>>>>>> d60ac3b3974cb6a392c4fe251948d4ae6c2edf91
 
 
 if __name__ == '__main__':

@@ -162,6 +162,7 @@ class TrainingResources:
 
     #输入姓名QQ或者电话
     def query_input_name(self,input_name_value):
+        self.driver.execute_script('window.scrollBy(0,-100)')
         query_input_name_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/input[3]')
 
         Service.send_input(query_input_name_ele,input_name_value)
@@ -274,10 +275,17 @@ class TrainingResources:
     def select_amount(self,amount_value):
         amount_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[1]/div[3]/select')
         Service.select_text(amount_ele,amount_value)
-    #输入缴费时间
-    def input_trade_time(self,trade_time_value):
-        trade_time_ele=self.driver.find_element_by_xpath('//*[@id="panel-element-enroll"]/div/div/div[2]/div[3]/input')
-        Service.send_input(trade_time_ele,trade_time_value)
+
+    # 输入跟踪资源状态为已报名时，缴费时间
+    def input_trade__time(self, paytime):
+        js = 'document.querySelector("#panel-element-enroll > div > div > div:nth-child(2) ' \
+             '> div:nth-child(3) > input").removeAttribute("readonly");'  # js去掉readonly属性
+        self.driver.execute_script(js)
+        js_value = 'document.querySelector("#panel-element-enroll > div > div > div:nth-child(2) ' \
+                   f'> div:nth-child(3) > input").value="{paytime}"'  # js添加时间
+        self.driver.execute_script(js_value)
+
+
 
     #输入保存
     def input_save_tracking_btn(self):
@@ -285,6 +293,11 @@ class TrainingResources:
 
     #执行跟踪资源
     def do_track_resource(self,old_num,track_resource_info):
+        time.sleep(2)
+        #临时池个人池资源可以报名
+        self.select_resource_library('临时池')
+        #点击查询
+        self.click_query()
         time.sleep(2)
         track_resource_tel=self.click_track_resource_button(old_num)
         # print(track_resource_tel)
@@ -302,7 +315,7 @@ class TrainingResources:
             self.select_fee(track_resource_info['fee'])
             self.select_account(track_resource_info['account'])
             self.select_amount(track_resource_info['amount'])
-            self.input_trade_time(track_resource_info['trade_time'])
+            self.input_trade__time(track_resource_info['trade_time'])
             self.input_save_tracking_btn()
             self.driver.refresh()
         else:
