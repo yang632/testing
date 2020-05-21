@@ -163,6 +163,7 @@ class TrainingResources:
     #输入姓名QQ或者电话
     def query_input_name(self,input_name_value):
         query_input_name_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/input[3]')
+
         Service.send_input(query_input_name_ele,input_name_value)
     #选择咨询师
     def select_consultant(self,consultant_value):
@@ -211,10 +212,14 @@ class TrainingResources:
         old_num=int(old_num)
         if old_num > 10:
             old_num=10
+
         num_random=Utility.get_random_num(1,old_num)
+
         self.driver.find_element_by_xpath(f'//*[@id="personal-table"]/tbody/tr[{num_random}]/td[15]/button[1]').click()
+
         #获取跟踪资源的电话号码
-        return  self.driver.find_element_by_xpath('//*[@id="resumeDivId"]/div[2]/blockquote/p[1]/span')
+        time.sleep(3)
+        return  self.driver.find_element_by_xpath('//*[@id="resumeDivId"]/div[2]/blockquote/p[1]/span').text
 
     # 点击跟踪资源链接
     def click_track_resource_link(self):
@@ -230,14 +235,20 @@ class TrainingResources:
         priority_ele=self.driver.find_element_by_xpath('//*[@id="formFollow"]/div[1]/div[2]/select')
         Service.select_text(priority_ele,priority_value)
     #下次跟踪时间输入
-    def next_time(self,net_time_value):
-        next_time_ele =self.driver.find_element_by_id('next_time')
-        Service.send_input(next_time_ele,net_time_value)
+    # 输入跟踪资源下次跟踪时间
+    def input_next_time(self, time):
+        js = 'document.getElementById("next_time").removeAttribute("readonly");'  # js去掉readonly属性
+        self.driver.execute_script(js)
+        js_value = f'document.getElementById("next_time").value="{time}"'  # js添加时间
+        self.driver.execute_script(js_value)
+
     #跟踪内容输入
     def input_track_keys(self,track_keys_value):
         track_keys_ele=self.driver.find_element_by_xpath('//*[@id="formFollow"]/div[2]/div/textarea')
         Service.send_input(track_keys_ele,track_keys_value)
-
+    #退出跟踪资源
+    def quit_track_resource(self):
+        self.driver.find_element_by_xpath('//*[@id="follow"]/div/div/div/div[1]/button/span[1]').click()
 
     #如果是已报名
     #选择班级
@@ -270,18 +281,19 @@ class TrainingResources:
 
     #输入保存
     def input_save_tracking_btn(self):
-        self.driver.find_element_by_id('saveTrackingBtn').click()
+        self.driver.find_element_by_xpath('//*[@id="saveTrackingBtn"]').click()
 
     #执行跟踪资源
     def do_track_resource(self,old_num,track_resource_info):
-
-        #获取到此时跟踪资源的电话号码
+        time.sleep(2)
         track_resource_tel=self.click_track_resource_button(old_num)
+        # print(track_resource_tel)
+        time.sleep(2)
         self.click_track_resource_link()
         if track_resource_info['new_status']=='已报名':
             self.new_status(track_resource_info['new_status'])
             self.select_priority(track_resource_info['priority'])
-            self.next_time(track_resource_info['next_time'])
+            self.input_next_time(track_resource_info['next_time'])
             self.input_track_keys(track_resource_info['track_keys'])
 
             #报名特有的
@@ -292,13 +304,15 @@ class TrainingResources:
             self.select_amount(track_resource_info['amount'])
             self.input_trade_time(track_resource_info['trade_time'])
             self.input_save_tracking_btn()
+            self.driver.refresh()
         else:
             # track_resource_info['new_status'] 不等于已报名
             self.new_status(track_resource_info['new_status'])
             self.select_priority(track_resource_info['priority'])
-            self.next_time(track_resource_info['net_time'])
+            self.input_next_time(track_resource_info['next_time'])
             self.input_track_keys(track_resource_info['track_keys'])
             self.input_save_tracking_btn()
+            self.quit_track_resource()
 
         return track_resource_tel
 
@@ -326,13 +340,11 @@ class TrainingResources:
         Service.select_text(edit_source_ele,edit_source_value)
 
     def click_edit_button(self):
-        self.driver.find_element_by_id("alterCusBtn").click()
+        self.driver.find_element_by_xpath('//*[@id="alterCusBtn"]').click()
 
     #执行修改组合操作
     def do_edit_recource(self,old_num,edit_recource_info):
-        # edit_recource_info={"edit_name":edit_name,'edit_status':edit_status,
-        #                     'edit_tel':edit_tel,'edit_source';edit_source
-        #                     }
+
         if old_num >10:
             old_num=10
         num=Utility.get_random_num(1,old_num)

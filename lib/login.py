@@ -36,8 +36,13 @@ class Login:
     def click_logout(self):
         self.driver.find_element_by_partial_link_text('注销').click()
     #执行登录动作
+
     def do_login(self,uname,psword,code):
         Service.open_startpage(self.driver,'../conf/yun/base.conf')
+
+    def do_login(self,uname,psword,code,path):
+        Service.open_startpage(self.driver,path)
+
         self.input_uasername(uname)
         self.input_password(psword)
         self.input_vcode(code)

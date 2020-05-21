@@ -54,10 +54,9 @@ class Service:
         # cls.open_startpage(driver,path)
         contents = Utility.get_json(path)
         #执行登录
-
         from lib.login import Login
-        Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'])
-        time.sleep(2)
+        Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'],path)
+        time.sleep(1)
         #点击解密按钮
         driver.find_element_by_id('btn-decrypt').click()
         # 输入密码
@@ -95,15 +94,28 @@ class Service:
         return list
     #获取页面条数
     @classmethod
-    def get_num(cls,driver,traning__xpath):
-        content=driver.find_element_by_xpath(traning__xpath).text
+    def get_num(cls,driver,traning_xpath):
+        content=driver.find_element_by_xpath(traning_xpath).text
         import re
         return re.findall(r"总共 (.*?)条记录",content)[0]
 
 
+    # 输入时间
+    @classmethod
+    def input_time(cls,driver,jspath,time):
+        js = f'{jspath}.removeAttribute("readonly");'  # js去掉readonly属性
+        driver.execute_script(js)
+        js_value = f'{jspath}.value="{time}"'  # js添加时间
+        driver.execute_script(js_value)
 
+# document.querySelector("#modifyCourseForm > div > div > div:nth-child(1) > input")
 
-
+  # 输入新增排课开始时间
+    def input_start_time(self,starttime):
+        js = 'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").removeAttribute("readonly");'  # js去掉readonly属性
+        self.driver.execute_script(js)
+        js_value = f'document.querySelector("#addcourse > div.row > div:nth-child(1) > input").value="{starttime}"'  # js添加时间
+        self.driver.execute_script(js_value)
 
 
 

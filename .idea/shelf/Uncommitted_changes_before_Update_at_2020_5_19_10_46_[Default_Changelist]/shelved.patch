@@ -1,0 +1,95 @@
+Index: conf/huang/base.conf
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n    \"BROWSER\":\"Edge\",\r\n    \"PROTOCOL\":\"http\",\r\n    \"HOSTNAME\":\"192.172.3.202\",\r\n    \"PORT\":\"8080\",\r\n    \"PROGRAM\":\"WoniuBoss4.0/login\",\r\n    \"DBUSER\":\"root\",\r\n    \"DBPASS\":\"123456\",\r\n    \"DBNAME\":\"192.172.3.202\",\r\n    \"USERNAME\":\"WNCD000\",\r\n    \"USERPASS\":\"woniu123\",\r\n    \"CKECKCODE\":\"0000\",\r\n    \"REMEMBER\":\"\",\r\n    \"TWOPASS\":\"woniu123\"\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- conf/huang/base.conf	(revision 248652f9cbf09d55ba6938e6369dd960fdb8c9c8)
++++ conf/huang/base.conf	(date 1589854940374)
+@@ -1,5 +1,5 @@
+ {
+-    "BROWSER":"Edge",
++    "BROWSER":"Firefox",
+     "PROTOCOL":"http",
+     "HOSTNAME":"192.172.3.202",
+     "PORT":"8080",
+Index: lib/course_arrangement.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding:utf-8 -*-\r\n#@Time      :2020/5/18\r\n#@Author    :hxy\r\n#@File      :course_arrangement.py\r\nfrom tools.service import Service\r\n\r\n\r\nclass CourseArrangement:\r\n\r\n    def __init__(self,driver):\r\n            self.driver = driver\r\n            # 点击教学管理\r\n            self.driver.find_element_by_xpath('//*[@id=\"nav2\"]/div[7]/div[1]/a').click()\r\n            # 点击课程安排\r\n            self.driver.find_element_by_xpath('//*[@id=\"list-11\"]/div/ul/li[1]/a').click()\r\n\r\n    # 点击查询\r\n    def click_query(self):\r\n        self.driver.find_element_by_css_selector(\"button.btn:nth-child(10)\").click()\r\n\r\n    # 选择校区\r\n    def select_campus(self, campus_value):\r\n        campus_ele = self.driver.find_element_by_xpath('//*[@id=\"course\"]/div[1]/select[1]')\r\n        Service.select_text(campus_ele, campus_value)\r\n\r\n    # 选择讲师\r\n    def query_teacher(self, teacher_value):\r\n        teacher_ele = self.driver.find_element_by_xpath('//*[@id=\"course\"]/div[1]/select[2]')\r\n        Service.select_text(teacher_ele, teacher_value)\r\n\r\n    #选择方向\r\n    def select_specialty(self, specialty_value):\r\n        specialty_ele = self.driver.find_element_by_xpath('//*[@id=\"course\"]/div[1]/select[3]')\r\n        Service.select_text(specialty_ele, specialty_value)\r\n\r\n    # 开始时间\r\n    def query_start_time(self, start_time_value):\r\n        start_time_ele = self.driver.find_element_by_partial_link_text('//*[@id=\"course\"]/div[1]/input[1]')\r\n        Service.send_input(start_time_ele, start_time_value)\r\n\r\n    # 结束时间\r\n    def query_end_time(self, end_time_value):\r\n        end_time_ele = self.driver.find_element_by_partial_link_text('//*[@id=\"course\"]/div[1]/input[2]')\r\n        Service.send_input(end_time_ele, end_time_value)\r\n\r\n    # 执行搜索\r\n    def do_query(self, query_course_info):\r\n        self.select_campus(query_course_info['campus'])\r\n        self.query_teacher(query_course_info['teacher'])\r\n        self.select_specialty(query_course_info['specialty'])\r\n        self.query_start_time(query_course_info['start_time'])\r\n        self.query_end_time(query_course_info['end_time'])\r\n        self.click_query()\r\n\r\n    # 点击排课\r\n    def click_new_course(self):\r\n        # 点击排课按钮\r\n        self.driver.find_element_by_css_selector(\"button.btn:nth-child(11)\").click()\r\n\r\n    #开始时间\r\n    def start_time(self,start_time_value):\r\n        start_time_ele=self.driver.find_element_by_partial_link_text('cur.start_time')\r\n        Service.send_input(start_time_ele,start_time_value)\r\n\r\n    #结束时间\r\n    def end_time(self,end_time_value):\r\n        end_time_ele = self.driver.find_element_by_partial_link_text('cur.end_time')\r\n        Service.send_input(end_time_ele,end_time_value)\r\n\r\n    # 选择讲师\r\n    def select_teacher(self, teacher_value):\r\n        teacher_ele = self.driver.find_element_by_xpath('//*[@id=\"addCourse-table\"]/tr/td[1]/select')\r\n        Service.select_text(teacher_ele, teacher_value)\r\n\r\n    # 选择教室\r\n    def select_classroom(self, classroom_value):\r\n        classroom_ele = self.driver.find_element_by_xpath('//*[@id=\"addCourse-table\"]/tr/td[2]/select')\r\n        Service.select_text(classroom_ele, classroom_value)\r\n\r\n    # 选择班号\r\n    def select_classcode(self, classcode_value):\r\n        classcode_ele = self.driver.find_element_by_xpath('//*[@id=\"addCourse-table\"]/tr/td[3]/select')\r\n        Service.select_text(classcode_ele, classcode_value)\r\n\r\n    # 选择课程\r\n    def select_course(self, course_value):\r\n        course_ele = self.driver.find_element_by_xpath('//*[@id=\"addCourse-table\"]/tr/td[4]/select')\r\n        Service.select_text(course_ele, course_value)\r\n\r\n    #点击保存\r\n    def click_save(self):\r\n        self.driver.find_element_by_xpath('//*[@id=\"course-add\"]/div/div/div[3]/button').click()\r\n\r\n\r\n\r\n    #新增排课组合操作\r\n    def do_add_course(self,add_course_info):\r\n        self.click_query()\r\n        self.click_new_course()\r\n        self.start_time(add_course_info['start_time'])\r\n        self.end_time(add_course_info['end_time'])\r\n        self.select_teacher(add_course_info['teacher'])\r\n        self.select_classroom(add_course_info['classroom'])\r\n        self.select_classcode(add_course_info['classcode'])\r\n        self.select_course(add_course_info['course'])\r\n        self.click_save()\r\n\r\n\r\nif __name__ == '__main__':\r\n    driver = Service.get_driver('../conf/huang/base.conf')\r\n    driver.implicitly_wait(10)\r\n    Service.ignor_login_decrypt(driver, '../conf/huang/base.conf')\r\n    ca = CourseArrangement(driver)\r\n\r\n    query_resource_info = {'campus': '成都', 'teacher': '我是谁', 'specialty': '全部',\r\n                           'start_time': '', 'end_time': ''\r\n                           }\r\n\r\n    ca.do_query(query_resource_info)\r\n\r\n    add_course_info={\"start_time\":\"2020-05-10\",\"end_time\":\"2020-06-01\",\r\n                     \"teacher\":\"我是谁\",\"classroom\":\"教室一\",\"classcode\":\"WNCDC002\",\r\n                     \"course\":\"第一阶段-第二周-MySQL数据库\"\r\n                     }\r\n\r\n    ca.do_add_course(add_course_info)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/course_arrangement.py	(revision 248652f9cbf09d55ba6938e6369dd960fdb8c9c8)
++++ lib/course_arrangement.py	(date 1589854912849)
+@@ -16,7 +16,7 @@
+ 
+     # 点击查询
+     def click_query(self):
+-        self.driver.find_element_by_css_selector("button.btn:nth-child(10)").click()
++        self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/button[1]').click()
+ 
+     # 选择校区
+     def select_campus(self, campus_value):
+@@ -35,12 +35,12 @@
+ 
+     # 开始时间
+     def query_start_time(self, start_time_value):
+-        start_time_ele = self.driver.find_element_by_partial_link_text('//*[@id="course"]/div[1]/input[1]')
++        start_time_ele = self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/input[1]')
+         Service.send_input(start_time_ele, start_time_value)
+ 
+     # 结束时间
+     def query_end_time(self, end_time_value):
+-        end_time_ele = self.driver.find_element_by_partial_link_text('//*[@id="course"]/div[1]/input[2]')
++        end_time_ele = self.driver.find_element_by_xpath('//*[@id="course"]/div[1]/input[2]')
+         Service.send_input(end_time_ele, end_time_value)
+ 
+     # 执行搜索
+@@ -59,12 +59,12 @@
+ 
+     #开始时间
+     def start_time(self,start_time_value):
+-        start_time_ele=self.driver.find_element_by_partial_link_text('cur.start_time')
++        start_time_ele=self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[1]/input')
+         Service.send_input(start_time_ele,start_time_value)
+ 
+     #结束时间
+     def end_time(self,end_time_value):
+-        end_time_ele = self.driver.find_element_by_partial_link_text('cur.end_time')
++        end_time_ele = self.driver.find_element_by_xpath('//*[@id="addcourse"]/div[1]/div[2]/input')
+         Service.send_input(end_time_ele,end_time_value)
+ 
+     # 选择讲师
+Index: lib/geckodriver.log
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1589710887178\tmozrunner::runner\tINFO\tRunning command: \"C:\\\\Program Files\\\\Mozilla Firefox\\\\firefox.exe\" \"-marionette\" \"-foreground\" \"-no-remote\" \"-profile\" \"C:\\\\Users\\\\sc281\\\\AppData\\\\Local\\\\Temp\\\\rust_mozprofileLSN6X9\"\r\n1589710888222\taddons.webextension.doh-rollout@mozilla.org\tWARN\tLoading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus\r\n1589710888836\taddons.webextension.screenshots@mozilla.org\tWARN\tLoading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons\r\n1589710888837\taddons.webextension.screenshots@mozilla.org\tWARN\tLoading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry\r\n1589710888837\taddons.webextension.screenshots@mozilla.org\tWARN\tLoading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/\r\n1589710888837\taddons.webextension.screenshots@mozilla.org\tWARN\tLoading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*\r\nJavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.\r\n1589710891876\tMarionette\tINFO\tListening on port 7921\r\n1589710891913\tMarionette\tWARN\tTLS certificate errors will be ignored for this session\r\nJavaScript error: resource://gre/modules/NetworkGeolocationProvider.jsm, line 555: TypeError: xhr.response.location is undefined\r\nJavaScript error: resource://gre/modules/NetworkGeolocationProvider.jsm, line 555: TypeError: xhr.response.location is undefined\r\n1589711277776\tMarionette\tINFO\tStopped listening on port 7921\r\n\r\n###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost\r\n\r\n\r\n###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv\r\n\r\n1589711334980\tmozrunner::runner\tINFO\tRunning command: \"C:\\\\Program Files\\\\Mozilla Firefox\\\\firefox.exe\" \"-marionette\" \"-foreground\" \"-no-remote\" \"-profile\" \"C:\\\\Users\\\\sc281\\\\AppData\\\\Local\\\\Temp\\\\rust_mozprofilem5hx2b\"\r\n1589711335970\taddons.webextension.doh-rollout@mozilla.org\tWARN\tLoading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/geckodriver.log	(revision 248652f9cbf09d55ba6938e6369dd960fdb8c9c8)
++++ lib/geckodriver.log	(date 1589855771985)
+@@ -18,3 +18,21 @@
+ 
+ 1589711334980	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\sc281\\AppData\\Local\\Temp\\rust_mozprofilem5hx2b"
+ 1589711335970	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
++1589854944961	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Firefox Developer Edition\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\13051\\AppData\\Local\\Temp\\rust_mozprofile.LWDaJQfwjdE6"
++1589854945911	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
++1589854946616	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
++1589854946616	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
++1589854946616	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
++1589854946616	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
++JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
++1589854949609	Marionette	INFO	Listening on port 11663
++1589854949918	Marionette	WARN	TLS certificate errors will be ignored for this session
++JavaScript error: resource://gre/modules/NetworkGeolocationProvider.jsm, line 555: TypeError: xhr.response.location is undefined
++JavaScript error: resource://gre/modules/psm/RemoteSecuritySettings.jsm, line 833: NS_ERROR_ILLEGAL_VALUE: Component returned failure code: 0x80070057 (NS_ERROR_ILLEGAL_VALUE) [nsIXPCComponents_Utils.reportError]
++1589855771941	Marionette	INFO	Stopped listening on port 11663
++
++###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
++
++
++###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
++
