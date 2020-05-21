@@ -23,7 +23,6 @@ class Start:
             from HTMLTestRunner import HTMLTestRunner
             runner=HTMLTestRunner(stream=file,verbosity=2)
             runner.run(suit)
-
 if __name__ == '__main__':
     Start().start()
 
