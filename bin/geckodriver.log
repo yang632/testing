@@ -435,6 +435,7 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 1589635453152	Marionette	WARN	TLS certificate errors will be ignored for this session
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 1590022461804	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\sc281\\AppData\\Local\\Temp\\rust_mozprofile85jYiG"
 1590022463022	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
 1590022463478	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
@@ -452,6 +453,8 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
 =======
+=======
+>>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
 =======
 >>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
 1590025985301	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\T430s1\\AppData\\Local\\Temp\\rust_mozprofile.RNPJMYHSNqvT"
@@ -995,6 +998,9 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 1590029504704	Marionette	WARN	TLS certificate errors will be ignored for this session
 1590029562830	Marionette	INFO	Stopped listening on port 54863
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
+=======
 >>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
 =======
 >>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
