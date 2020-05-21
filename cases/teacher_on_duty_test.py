@@ -14,8 +14,10 @@ class TeacherOnDutyTest(unittest.TestCase):
 
     # 获取测试数据
     contents = Utility.get_json('../conf/huang/testinfo.conf')
-    # 获取教师值班的测试数据
+    # 获取新增教师值班的测试数据
     add_duty_info = Utility.tran_tuple(contents[5])
+    # 获取修改教室值班的数据
+    alter_duty_info = Utility.tran_tuple(contents[6])
 
 
     @classmethod
@@ -53,6 +55,24 @@ class TeacherOnDutyTest(unittest.TestCase):
         
         self.assertEqual(actual,expect)
 
+    
+    #测试修改值班
+    @parameterized.expand(alter_duty_info)
+    def test_alter_duty(self,teacher,time_js,duty_time,expect):
+        alter_duty_info = {"teacher": teacher, "time_js": time_js, "duty_time": duty_time}
+        # 执行修改
+        self.tod.do_alter_duty(alter_duty_info)
+        #获取修改的随机数
+        alternum = self.tod.click_alter()
+        # 获取界面老师名字元素
+        teachername_list = Service.get_page_ele(self.driver, f'//*[@id="duty_table"]/tbody/tr[{alternum}]/td[2]')
+
+        if teacher in teachername_list:
+            actual = 'alter-success'
+        else:
+            actual = 'alter-fail'
+
+        self.assertEqual(actual, expect)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

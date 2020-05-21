@@ -67,13 +67,9 @@ class TeacherOnDuty:
         Service.select_text(teacher_ele,teacher_value)
 
     # 选择值班日期
-    def alter_duty_time(self):
-        # Service.input_time(self.driver,time_js,duty_time)
-        js = 'document.querySelector("#editDuty-form > div > div:nth-child(3) > input").removeAttribute("readonly");'  # js去掉readonly属性
-        driver.execute_script(js)
-        js_value = f'document.querySelector("#editDuty-form > div > div:nth-child(3) > input").value="2020-05-20"'  # js添加时间
-        driver.execute_script(js_value)
-
+    def alter_duty_time(self,time_js,duty_time):
+        Service.input_time(self.driver,time_js,duty_time)
+    #     document.querySelector("#editDuty-form > div > div:nth-child(3) > input")
 
     # 点击保存
     def click_alter_seve(self):
