@@ -15,8 +15,9 @@ class Start:
         loader = unittest.TestLoader()
         names = Utility.get_str('../conf/yang/test.conf')
         huangnames = Utility.get_str('../conf/huang/test.conf')
-        print(huangnames)
-        tests=loader.loadTestsFromNames(huangnames)
+        pengnames=Utility.get_str('../conf/peng/test.conf')
+        print(pengnames)
+        tests=loader.loadTestsFromNames(pengnames)
         suit.addTests(tests)
         with open (f"..//reports/{Utility.ctime()}.html","w") as file:
             from HTMLTestRunner import HTMLTestRunner

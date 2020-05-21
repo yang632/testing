@@ -44,7 +44,7 @@ class StudentTest(unittest.TestCase):
 
 
     @parameterized.expand(query_student_info)
-    @unittest.skip("忽略查询学员")
+    # @unittest.skip("忽略查询学员")
     def test_query_student(self,area,sname,state,direction,sclass,expect):
         query_student_data={"s_area":area,"s_name":sname,"s_state":state,"s_direction":direction,"s_sclass":sclass}
         self.student.query_student(query_student_data)
