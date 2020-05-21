@@ -99,7 +99,11 @@ class Service:
         import re
         return re.findall(r"总共 (.*?)条记录",content)[0]
 
-
+    @classmethod
+    def get_kaoqin(cls, driver, kaoqin_xpath):
+        content = driver.find_element_by_xpath(kaoqin_xpath).text
+        import re
+        return re.findall(r"(\d)", content)[0]
     # 输入时间
     @classmethod
     def input_time(cls,driver,jspath,time):

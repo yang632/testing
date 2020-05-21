@@ -18,7 +18,8 @@ class Class_service:
         Service.select_text(select_area,region)
     #状态查询
     def status_query(self, status):
-        select_status = self.driver.find_element_by_css_selector('.col-lg-12 > select:nth-child(2)').click()
+        #select_status = self.driver.find_element_by_css_selector('.col-lg-12 > select:nth-child(2)').click()
+        select_status=self.driver.find_element_by_xpath('/html/body/div[8]/div[2]/div/div/div[1]/div[1]/select[2]')
         Service.select_text(select_status,status)
 
     #新增
@@ -41,7 +42,7 @@ class Class_service:
         teacher=self.driver.find_element_by_xpath('//*[@id="addClass-form"]/div/div[4]/select')
         Service.select_text(teacher,class_headmaster_id)
     def confirm_save(self):
-        self.driver.find_element_by_xpath('/html/body/div[11]/div/div/div[3]/button').click()
+        self.driver.find_element_by_xpath('//*[@id="addClass-modal"]/div/div/div[3]/button').click()
 
     # c.class_no = WNCDC22 & c.orientation = % E6 % B5 % 8
     # B % E8 % AF % 95 & c.opening_time = 2020 - 05 - 20 & c.class_headmaster_id = 6
@@ -54,36 +55,40 @@ class Class_service:
     #执行添加班级动作
     def do_add(self,add_data):
         self.class_management()
+        old_tolod=Service.get_num(self.driver, '//*[@id="cmDiv"]/div[2]/div[2]/div[4]/div[1]/span[1]')
         self.button_add()
         self.input_classname(add_data["c.class_no"])
         self.direction(add_data["c.orientation"])
         self.selec_time(add_data["c.opening_time"])
         self.selec_teacher(add_data['c.class_headmaster_id'])
+        self.confirm_save()
+        return old_tolod
  #打开学员考勤
-    def checking_in(self,driver):
+    def checking_in(self):
         Service.open_menu(self.driver, '班务管理')
         Service.open_menu(self.driver, '学员考勤')
     #姓名搜索
     def student_name(self,stuName):
-        student_name=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/div/div/div[1]/input')
+        student_name=self.driver.find_element_by_xpath('/html/body/div[8]/div[2]/div/div/div/div[1]/input')
         Service.send_input(student_name,stuName)
         self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/div/div/div[1]/button[1]').click()
     #考勤选项
     def sele_attendance(self,attendance):
-        sele_attendance=self.driver.find_element_by_xpath('//*[@id="stu-table"]/tbody/tr[1]/td[8]/select')
+        sele_attendance=self.driver.find_element_by_xpath('/html/body/div[8]/div[2]/div/div/div/div[3]/div/div/div/div[1]/div[2]/div/div[1]/div[2]/div[2]/table/tbody/tr[1]/td[8]/select')
         Service.select_text(sele_attendance,attendance)
     #点击考勤按钮
     def confirmAttenBtn(self):
-        self.driver.find_element_by_xpath('//*[@id="confirmAttenBtn_3553"]').click()
+        self.driver.find_element_by_xpath('//*[@id="confirmAttenBtn_3563"]').click()
     #执行考勤动作
-    def do_confirm(self,driver,confirm_data):
-        self.checking_in(driver)
-        self.student_name(confirm_data['stuName'])
+    def do_confirm(self,confirm_data):
+        self.checking_in()
+        old_total=Service.get_kaoqin(self.driver,'/html/body/div[8]/div[2]/div/div/div/div[3]/div/div/div/div[1]/div[2]/div/div[1]/div[2]/div[2]/table/tbody/tr[1]/td[7]')
+        #self.student_name(confirm_data['stuName'])
         self.sele_attendance(confirm_data['attendance'])
         self.confirmAttenBtn()
-
+        return old_total
     # 打开学员请假
-    def leave(self, driver):
+    def leave(self):
         Service.open_menu(self.driver, '班务管理')
         Service.open_menu(self.driver, '学员请假')
     #区域
@@ -97,9 +102,13 @@ class Class_service:
     #点击查询按钮
     def query(self):
         self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/div/div/div[1]/button').click()
+    #点击姓名
+    def name(self,stuname):
+        name=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/div/div/div[1]/input')
+        Service.send_input(name,stuname)
     #点击修改按钮
     def button_change(self):
-        self.driver.find_element_by_xpath('//*[@id="leave-table"]/tbody/tr[1]/td[12]/button[3]').click()
+        self.driver.find_element_by_xpath('/html/body/div[8]/div[2]/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr/td[12]/button[3]').click()
     #修改请假条内容
     def ch_star_time(self,startime):
         Service.input_time(self.driver,'//*[@id="modLeave-form"]/div[1]/div[1]/input',startime)
@@ -124,7 +133,7 @@ class Class_service:
         Service.select_text(cont,leave_cont)
     #请假原因
     def ch_reson(self,reason):
-        reson=self.driver.find_element_by_xpath('//*[@id="modLeave-form"]/div[4]/div/textarea')
+        reson=self.driver.find_element_by_xpath('/html/body/div[15]/div/div/div[2]/form/div[4]/div/textarea')
         Service.send_input(reson,reason)
     #修改处理意见
     def ch_opinion(self,comment):
@@ -164,28 +173,34 @@ class Class_service:
     def add_save(self):
         self.driver.find_element_by_xpath('//*[@id="leave-modal"]/div/div/div[3]/button').click()
     #执行请假查询动作
-    def do_leave_query(self,driver,leave_query_data):
-        self.leave(driver)
+    def do_leave_query(self,leave_query_data):
+        self.leave()
+        old_tolod = Service.get_num(self.driver,'//*[@id="content"]/div[2]/div/div/div/div[2]/div[2]/div[4]/div[1]/span[1]')
         self.quyu(leave_query_data['region_id'])
         self.status(leave_query_data['leave_status'])
         self.query()
     #执行修改动作
-    def change_leave(self,driver,change_data):
-        self.leave(driver)
+    def change_leave(self,change_data):
+        self.leave()
+        self.name(change_data['sl.stuName'])
+        self.query()
+        old_text=self.driver.find_element_by_xpath('/html/body/div[8]/div[2]/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr/td[4]/span').text
         self.button_change()
-        self.ch_star_time(change_data['sl.start_time'])
-        self.ch_end_time(change_data['sl.end_time'])
-        self.ch_type(change_data['sl.leave_type'])
-        self.ch_day(change_data['sl.days'])
-        self.ch_name(change_data['sl.stuName'])
-        self.ch_cont(change_data['sl.leave_count'])
+        # self.ch_star_time(change_data['sl.start_time'])
+        # self.ch_end_time(change_data['sl.end_time'])
+        # self.ch_type(change_data['sl.leave_type'])
+        # self.ch_day(change_data['sl.days'])
+        # self.ch_name(change_data['sl.stuName'])
+        # self.ch_cont(change_data['sl.leave_count'])
         self.ch_reson(change_data['sl.reason'])
-        self.ch_opinion(change_data['sl.comment'])
+        # self.ch_opinion(change_data['sl.comment'])
         self.ch_save()
+        return old_text
     #执行新增动作
-    def do_add_leave(self,driver,add_leave_data):
-        self.leave(driver)
+    def do_add_leave(self,add_leave_data):
+        self.leave()
         self.add_leave()
+        old_tatol=Service.get_num(self.driver,'//*[@id="content"]/div[2]/div/div/div/div[2]/div[2]/div[4]/div[1]/span[1]')
         self.add_startime(add_leave_data['sl.start_time'])
         self.add_endtime(add_leave_data['sl.end_time'])
         self.add_type(add_leave_data['sl.leave_type'])
@@ -195,9 +210,10 @@ class Class_service:
         self.add_reason(add_leave_data['sl.reason'])
         self.add_comment(add_leave_data['sl.comment'])
         self.add_save()
+        return old_tatol
 
     #学员转班
-    def change_class(self,driver):
+    def change_class(self):
         Service.open_menu(self.driver, '班务管理')
         Service.open_menu(self.driver, '学员转班')
     #点击转班按钮stuId=3556&stuClass=WNCDC99&regionId=1
@@ -207,7 +223,7 @@ class Class_service:
         changeRegion=self.driver.find_element_by_xpath('//*[@id="changeClass-modal"]/div/div/div[2]/div[1]/select')
         Service.select_text(changeRegion,regionId)
     def change_classno(self,stuClass):
-        change_Class=self.driver.find_element_by_xpath('//*[@id="changeClass-modal"]/div/div/div[2]/div[2]/select')
+        change_Class=self.driver.find_element_by_xpath('/html/body/div[9]/div/div/div[2]/div[2]/select')
         Service.select_text(change_Class,stuClass)
     def change_save(self):
         self.driver.find_element_by_xpath('//*[@id="changeClass-modal"]/div/div/div[3]/button').click()
@@ -215,13 +231,15 @@ class Class_service:
         self.driver.find_element_by_xpath('/html/body/div[11]/div/div/div[3]/button[2]').click()
     def ok(self):
         self.driver.find_element_by_xpath('/html/body/div[10]/div/div/div[3]/button').click()
-    def do_change_class(self,driver,change_class_data):
-        self.change_class(driver)
+    def do_change_class(self,change_class_data):
+        self.change_class()
+        old_text=self.driver.find_element_by_xpath('/html/body/div[8]/div[2]/div/div/div/div[2]/div[2]/div[2]/table/tbody/tr[1]/td[4]').text
         self.change_class_but()
         self.changeRegion(change_class_data['regionId'])
         self.change_classno(change_class_data['stuClass'])
         self.change_save()
         self.save_save()
-        self.ok()
+        self.driver.refresh()
+        return old_text
 if __name__ == '__main__':
     pass
