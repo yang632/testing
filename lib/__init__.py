@@ -9,34 +9,3 @@
 # from selenium.webdriver.common.by import By
 #
 # driver=webdriver.Edge()
-
-# <<<<<<< HEAD
-# # <<<<<<< HEAD
-# # # driver=webdriver.Edge()
-# # =======
-# # >>>>>>> f3f751a66f81df62ed4ecb1fdd86f9cc888c31f2
-# =======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-# >>>>>>> f3f751a66f81df62ed4ecb1fdd86f9cc888c31f2
-
-=======
-=======
->>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
-=======
->>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
-#
-#
-#
-# >>>>>>> eb59cd83fdf293eb2f507317e5606eea0a1c7eda
-=======
-
->>>>>>> 99f54f3d2551ff7694551642c75a7582ed3a5774
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
-=======
->>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0
-=======
->>>>>>> 6b84f7631caf26184b3b4aa3d9c9c55cca7194b0

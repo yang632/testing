@@ -59,8 +59,6 @@ class TeacherOnDuty:
         dutynum = random.randint(1, int(num))
         print("num",num,"\tdutynum",dutynum)
         self.driver.find_element_by_xpath(f'//*[@id="duty_table"]/tbody/tr[{dutynum}]/td[10]/button[2]').click()
-        # // *[ @ id = "duty_table"] / tbody / tr[1] / td[10] / button[2]
-        # //*[@id="duty_table"]/tbody/tr[2]/td[10]/button[2]
         return dutynum
 
     # 选择值班人
@@ -106,11 +104,11 @@ if __name__ == '__main__':
                  "duty_time":"2020-05-20"
                  }
 
-    # tod.do_add_duty(duty_info)
+    tod.do_add_duty(duty_info)
 
     alter_duty_info = {"teacher": "吴用",
                        "time_js": "document.querySelector(\"#editDuty-form > div > div:nth-child(3) > input\")",
                        "duty_time": "2020-05-19"
                       }
 
-    tod.do_alter_duty(alter_duty_info)
+    # tod.do_alter_duty(alter_duty_info)
