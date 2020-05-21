@@ -138,7 +138,7 @@ class Utility:
 
 if __name__ == '__main__':
     pass
-    s=Utility.get_str("../conf/huang/test.conf")
+    s=Utility.get_str("../conf/peng/test.conf")
     print(s)
     # t=Utility.get_testinfo(s[0])
     # print(t)

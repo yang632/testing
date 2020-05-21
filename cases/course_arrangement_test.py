@@ -81,7 +81,7 @@ class CouresArrangementTest(unittest.TestCase):
 
         classnum = self.ca.click_alter()
 
-        teacher_list=Service.get_page_ele(self.driver,'//*[@id="course_table"]/tbody/tr[1]/td[1]')
+        teacher_list=Service.get_page_ele(self.driver,f'//*[@id="course_table"]/tbody/tr[{classnum}]/td[1]')
 
         if teacher in teacher_list:
             actual='add-success'

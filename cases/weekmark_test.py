@@ -47,7 +47,7 @@ class WeekMarkTest(unittest.TestCase):
 
 
     @parameterized.expand(query_week_info)
-    @unittest.skip("忽略查询")
+    # @unittest.skip("忽略查询")
     def test_query_week(self,s_name,s_area,s_sclass,expect):
         query_week_data={"s_name":s_name,"s_area":s_area,"s_sclass":s_sclass}
 
@@ -67,7 +67,7 @@ class WeekMarkTest(unittest.TestCase):
 
 
     @parameterized.expand(import_week_info)
-    @unittest.skip("忽略录用")
+    # @unittest.skip("忽略录用")
     def test_import_week(self,s_sclass,stage,week,score,expect):
         import_week_data={"s_sclass":s_sclass,"stage":stage,"week":week,"score":score}
         self.week.do_week_mark(import_week_data)
