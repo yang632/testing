@@ -2,6 +2,8 @@
 #@Time      :2020/5/21
 #@Author    :hxy
 #@File      :application_for_extra_work.py：加班申请
+import time
+
 from tools.service import Service
 
 
@@ -22,11 +24,13 @@ class ApplicationForExtraWork:
         self.driver.find_element_by_xpath('//*[@id="queryPara"]/div[1]/button[2]').click()
 
     #输入开始时间
-    def input_start_time(self,start_js,start_time):
+    def input_start_time(self,start_time):
+        start_js = "document.querySelector(\"#addApply-form > div > div > div:nth-child(2) > div:nth-child(1) > input\")"
         Service.input_time(self.driver,start_js,start_time)
 
     # 输入结束时间
-    def input_end_time(self, end_js, end_time):
+    def input_end_time(self,end_time):
+        end_js = "document.querySelector(\"#addApply-form > div > div > div:nth-child(2) > div:nth-child(2) > input\")"
         Service.input_time(self.driver, end_js, end_time)
 
     #选择核算方式
@@ -60,8 +64,11 @@ class ApplicationForExtraWork:
     #执行排班
     def do_overtime(self,overtime_info):
         self.clicl_add_overtime()
-        self.input_start_time(overtime_info['start_js'],overtime_info['start_time'])
-        self.input_end_time(overtime_info['end_js'],overtime_info['end_time'])
+        time.sleep(1)
+        self.input_start_time(overtime_info['start_time'])
+        time.sleep(1)
+        self.input_end_time(overtime_info['end_time'])
+        time.sleep(1)
         self.select_accounting(overtime_info['accounting'])
         self.select_hours(overtime_info['hours'])
         self.select_region(overtime_info['region'])
