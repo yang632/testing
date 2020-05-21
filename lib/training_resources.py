@@ -162,6 +162,7 @@ class TrainingResources:
 
     #输入姓名QQ或者电话
     def query_input_name(self,input_name_value):
+        self.driver.execute_script('window.scrollBy(0,-100)')
         query_input_name_ele=self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/input[3]')
 
         Service.send_input(query_input_name_ele,input_name_value)

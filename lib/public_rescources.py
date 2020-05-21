@@ -47,6 +47,7 @@ class PublicRescources:
 
     #输入姓名电话或者qq
     def input_public_name(self,public_name_value):
+        self.driver.execute_script('window.scrollBy(0,-100)')
         public_name_ele= self.driver.find_element_by_xpath('//*[@id="content"]/div[2]/div/input')
         Service.send_input(public_name_ele,public_name_value)
 
@@ -56,6 +57,7 @@ class PublicRescources:
 
     #点击认领
     def select_public_claim(self):
+        self.driver.execute_script('window.scrollBy(0,-100)')
         self.driver.find_element_by_xpath('//*[@id="ownCusBtn"]').click()
 
     #确认认领

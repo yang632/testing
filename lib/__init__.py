@@ -5,11 +5,12 @@
 # Software: PyCharm
 # Time    : 2020/5/16 15:50
 
-# from  selenium import webdriver
+# driver.maximize_window()from  selenium import webdriver
 # from selenium.webdriver.common.by import By
 #
 # driver=webdriver.Edge()
 
+<<<<<<< HEAD
 # <<<<<<< HEAD
 # # <<<<<<< HEAD
 # # # driver=webdriver.Edge()
@@ -20,3 +21,6 @@
 #
 #
 # >>>>>>> eb59cd83fdf293eb2f507317e5606eea0a1c7eda
+=======
+
+>>>>>>> 99f54f3d2551ff7694551642c75a7582ed3a5774

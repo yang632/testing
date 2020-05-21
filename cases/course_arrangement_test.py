@@ -28,6 +28,7 @@ class CouresArrangementTest(unittest.TestCase):
     def setUp(self):
         self.driver = Service.get_driver('../conf/huang/base.conf')
         self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
         Service.ignor_login_decrypt(self.driver,'../conf/huang/base.conf')
         self.ca = CourseArrangement(self.driver)
 
