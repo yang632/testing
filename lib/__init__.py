@@ -1,6 +1,5 @@
-
-
-# driver.maximize_window()from  selenium import webdriver
-# from selenium.webdriver.common.by import By
+# from selenium import webdriver
 #
-# driver=webdriver.Edge()
+# driver=webdriver.Chrome()
+# driver.get('http://192.172.3.202:8080/WoniuBoss4.0/login')
+
