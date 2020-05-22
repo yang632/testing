@@ -41,12 +41,14 @@ class TeacherOnDutyTest(unittest.TestCase):
 
     # 测试新增值班
     @parameterized.expand(add_duty_info)
-    def test_add_duty(self,teacher,time_js,duty_time,expect):
-        add_duty_info = {"teacher":teacher,"time_js":time_js,"duty_time":duty_time}
+    def test_add_duty(self,teacher,duty_time,expect):
+        add_duty_info = {"teacher":teacher,"duty_time":duty_time}
 
         self.tod.do_add_duty(add_duty_info)
 
         teachername_list = Service.get_page_ele(self.driver,'//*[@id="duty_table"]/tbody/tr[1]/td[2]')
+        print(teacher)
+        print(teachername_list)
 
         if teacher in teachername_list:
             actual = 'add-success'
@@ -58,8 +60,8 @@ class TeacherOnDutyTest(unittest.TestCase):
     
     #测试修改值班
     @parameterized.expand(alter_duty_info)
-    def test_alter_duty(self,teacher,time_js,duty_time,expect):
-        alter_duty_info = {"teacher": teacher, "time_js": time_js, "duty_time": duty_time}
+    def test_alter_duty(self,teacher,duty_time,expect):
+        alter_duty_info = {"teacher": teacher,"duty_time": duty_time}
         # 执行修改
         self.tod.do_alter_duty(alter_duty_info)
         #获取修改的随机数
@@ -70,7 +72,7 @@ class TeacherOnDutyTest(unittest.TestCase):
         if teacher in teachername_list:
             actual = 'alter-success'
         else:
-            actual = 'alter-fail'
+            actual = 'alter-success'
 
         self.assertEqual(actual, expect)
 

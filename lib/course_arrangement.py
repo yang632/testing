@@ -3,6 +3,7 @@
 #@Author    :hxy
 #@File      :course_arrangement.py
 import random
+import time
 
 from tools.service import Service
 
@@ -69,6 +70,16 @@ class CourseArrangement:
         # 点击排课按钮
         self.driver.find_element_by_css_selector("button.btn:nth-child(11)").click()
 
+    # 输入开始时间
+    def input_start_time(self, start_time):
+        start_js = "document.querySelector(\"#addcourse > div.row > div:nth-child(1) > input\")"
+        Service.input_time(self.driver, start_js, start_time)
+
+    # 输入结束时间
+    def input_end_time(self, end_time):
+        end_js = "document.querySelector(\"#addcourse > div.row > div:nth-child(2) > input\")"
+        Service.input_time(self.driver, end_js, end_time)
+
     # 选择讲师
     def select_teacher(self, teacher_value):
         teacher_ele = self.driver.find_element_by_xpath('//*[@id="addCourse-table"]/tr/td[1]/select')
@@ -102,8 +113,8 @@ class CourseArrangement:
         self.click_query()
         self.click_new_course()
         # 输入开始时间
-        Service.input_time(self.driver,add_course_info['start_js'],add_course_info['start_time'])
-        Service.input_time(self.driver,add_course_info['end_js'],add_course_info['end_time'])
+        self.input_start_time(add_course_info['start_time'])
+        self.input_end_time(add_course_info['end_time'])
         self.select_teacher(add_course_info['teacher'])
         self.select_classroom(add_course_info['classroom'])
         self.select_classcode(add_course_info['classcode'])
@@ -119,18 +130,20 @@ class CourseArrangement:
     def click_alter(self):
         # 随机修改
         # 获取班级总数
-        num = Service.get_num(driver, '//*[@id="course"]/div[2]/div[2]/div[4]/div[1]/span[1]')
+        # num = Service.get_num(self.driver, '//*[@id="course"]/div[2]/div[2]/div[4]/div[1]/span[1]')
         # 随机选择课程
-        classnum = random.randint(1, 10)
-        self.driver.find_element_by_xpath(f'//*[@id="course_table"]/tbody/tr[{classnum}]/td[9]/button').click()
-        return classnum
+        # classnum = random.randint(1, 10)
+        self.driver.find_element_by_xpath('//*[@id="course_table"]/tbody/tr[1]/td[9]/button').click()
+        # return classnum
 
     # 输入开始时间
-    def alter_start_time(self,start_js,start_time):
+    def alter_start_time(self,start_time):
+        start_js = 'document.querySelector("#modifyCourseForm > div > div > div:nth-child(1) > input")'
         Service.input_time(self.driver,start_js,start_time)
 
     #输入结束时间
-    def alter_end_time(self,end_js,end_time):
+    def alter_end_time(self,end_time):
+        end_js = 'document.querySelector("#modifyCourseForm > div > div > div:nth-child(2) > input")'
         Service.input_time(self.driver,end_js,end_time)
 
     # 修改讲师
@@ -146,7 +159,7 @@ class CourseArrangement:
     # 修改班号
     def alter_classcode(self,classcode_value):
         classcode_ele = self.driver.find_element_by_xpath('//*[@id="modifyCourseForm"]/div/div/div[5]/select')
-        Service.select_value(classcode_ele,classcode_value)
+        Service.select_text(classcode_ele,classcode_value)
 
     # 修改课程
     def alter_course(self,course_value):
@@ -160,11 +173,17 @@ class CourseArrangement:
 
     def do_alter_course(self,alter_course_info):
         self.click_alter()
-        self.alter_start_time(alter_course_info['start_js'],alter_course_info['start_time'])
-        self.alter_end_time(alter_course_info['end_js'],alter_course_info['end_time'])
+
+        self.alter_start_time(alter_course_info['start_time'])
+
+        self.alter_end_time(alter_course_info['end_time'])
+
         self.alter_teacher(alter_course_info['teacher'])
+
         self.alter_classroom(alter_course_info['classroom'])
+
         self.alter_classcode(alter_course_info['classcode'])
+
         self.alter_course(alter_course_info['course'])
         self.click_alter_save()
 
@@ -188,17 +207,18 @@ if __name__ == '__main__':
     add_course_info={"start_js":"document.querySelector(\"#addcourse > div.row > div:nth-child(1) > input\")",
                      "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
                      "start_time":"2020-05-10","end_time":"2020-06-01",
-                     "teacher":"我是谁","classroom":"教室一","classcode":"",
-                     "course":"第一阶段-第二周-MySQL数据库"
+                     "teacher":"我是谁","classroom":"教室一","classcode":"WNCDC009",
+                     "course":"第二阶段-第一周-Web前端编程"
                      }
 
     # ca.do_add_course(add_course_info)
 
     alter_course_info = {"start_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(1) > input\")",
                         "end_js":"document.querySelector(\"#modifyCourseForm > div > div > div:nth-child(2) > input\")",
-                        "start_time":"2020-03-12","end_time":"2020-03-19","teacher":"阿大",
-                        "classroom":"教室二","classcode":"234",
-                        "course":"第一阶段-第五周-MySQL数据库"
+                        "start_time":"2020-03-12","end_time":"2020-03-19","teacher":"佛祖",
+                        "classroom":"教室二","classcode":"WNCDC009",
+                        "course":"第三阶段-第二周-企业级框架(1)"
                         }
+    print(alter_course_info)
 
     ca.do_alter_course(alter_course_info)

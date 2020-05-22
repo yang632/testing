@@ -64,11 +64,11 @@ class ApplicationForExtraWork:
     #执行排班
     def do_overtime(self,overtime_info):
         self.clicl_add_overtime()
-        time.sleep(1)
+        # time.sleep(1)
         self.input_start_time(overtime_info['start_time'])
-        time.sleep(1)
+        # time.sleep(1)
         self.input_end_time(overtime_info['end_time'])
-        time.sleep(1)
+        # time.sleep(1)
         self.select_accounting(overtime_info['accounting'])
         self.select_hours(overtime_info['hours'])
         self.select_region(overtime_info['region'])
