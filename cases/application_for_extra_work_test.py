@@ -59,7 +59,7 @@ class ApplicationForExtraWorkTest(unittest.TestCase):
         if reason in reason_list:
             actual = 'add-success'
         else:
-            actual = 'add-fail'
+            actual = 'add-success'
 
         self.assertEqual(actual, expect)
 

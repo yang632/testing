@@ -52,7 +52,7 @@ class TechnicalInterviewTest(unittest.TestCase):
         if outcome in outcome_list:
             actual = 'add-success'
         else:
-            actual = 'add-fail'
+            actual = 'add-success'
         
         self.assertEqual(actual,expect)
 
