@@ -1,14 +1,10 @@
-# -*- encoding: utf-8 -*-
-# File    : __init__.py
-# Author  : yang
-# Email   : yang@163.com
-# Software: PyCharm
-# Time    : 2020/5/16 15:50
+
 
 # driver.maximize_window()from  selenium import webdriver
 # from selenium.webdriver.common.by import By
 #
 # driver=webdriver.Edge()
+<<<<<<< HEAD
 
 # <<<<<<< HEAD
 # <<<<<<< HEAD
@@ -24,3 +20,5 @@
 # =======
 
 # >>>>>>> 99f54f3d2551ff7694551642c75a7582ed3a5774
+=======
+>>>>>>> 189a9962cb30d077095cf334b068028b44ee26c3
