@@ -105,6 +105,7 @@ class TranningResourcesTest(unittest.TestCase):
         driver=self.driver
         #获取废弃前的数量
         self.tr.click_query()
+        time.sleep(2)
         old_num=Service.get_num(driver,'//*[@id="content"]/div[3]/div/div[1]/div[2]/div[4]/div[1]/span[1]')
         # print(old_num)
         self.tr.discard_resource(old_num)
