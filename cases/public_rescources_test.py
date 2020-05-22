@@ -30,6 +30,7 @@ class PublicRescourcesTest(unittest.TestCase):
         Service.ignor_login_decrypt(self.driver,'../conf/yang/base.conf')
         from lib.public_rescources import PublicRescources
         self.pu=PublicRescources(self.driver)
+
     def tearDown(self):
         self.driver.close()
     @classmethod

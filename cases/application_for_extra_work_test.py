@@ -29,8 +29,8 @@ class ApplicationForExtraWorkTest(unittest.TestCase):
         self.afew = ApplicationForExtraWork(self.driver)
 
     def tearDown(self):
-        pass
-        # self.driver.quit()
+        # pass
+        self.driver.quit()
 
     @classmethod
     def tearDownClass(cls):
@@ -51,7 +51,7 @@ class ApplicationForExtraWorkTest(unittest.TestCase):
             "accounting": "结算工资", "hours": "2小时", "region": "成都",
             "reason": "没钱要赚更多的钱买买买"
             }
-        print(add_overtime_info)
+        # print(add_overtime_info)
 
         self.afew.do_overtime(add_overtime_info)
 
@@ -63,5 +63,5 @@ class ApplicationForExtraWorkTest(unittest.TestCase):
 
         self.assertEqual(actual, expect)
 
-# if __name__ == '__main__':
-#     unittest.main(verbosity=2)
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

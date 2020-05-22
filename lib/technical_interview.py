@@ -20,8 +20,10 @@ class TechnicalInterview:
     def click_interview(self):
         # 获取学生总数
         num = Service.get_num(self.driver, '//*[@id="skills"]/div[2]/div[2]/div[4]/div[1]/span[1]')
+        print(num)
         # 随机选择学生
-        studentnum = random.randint(1, int(num))
+        studentnum = random.randint(1, 6)
+        print(studentnum)
         self.driver.find_element_by_xpath(f'//*[@id="stuInfo_table"]/tbody/tr[{studentnum}]/td[9]/button').click()
         return studentnum
 
