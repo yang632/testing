@@ -20,8 +20,9 @@ class Service:
     def open_startpage(cls,driver,path):
         content=Utility.get_json(path)
         # print(content)
+        driver.maximize_window()
         url=f"{content['PROTOCOL']}://{content['HOSTNAME']}:{content['PORT']}/{content['PROGRAM']}/"
-        # url='http://47.96.74.65:8080/WoniuBoss4.0/login'
+        # url='http://192.172.3.202:8080/WoniuBoss4.0/login'
         driver.get(url)
 
     # 打开模块界面
@@ -59,6 +60,7 @@ class Service:
     def ignor_login_decrypt(cls,driver,path):
         # cls.open_startpage(driver,path)
         contents = Utility.get_json(path)
+        print(contents)
         #执行登录
         from lib.login import Login
         Login(driver).do_login(contents['USERNAME'],contents['USERPASS'],contents['CKECKCODE'],path)
@@ -138,5 +140,5 @@ class Service:
 if __name__ == '__main__':
     pass
     # driver =Service.get_driver('../conf/yang/base.conf')
-    # Service.open_startpage(driver)
-    # # Service.ignor_login(driver)
+    # Service.open_startpage(driver,'../conf/yang/base.conf')
+
