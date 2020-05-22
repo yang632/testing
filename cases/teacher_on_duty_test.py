@@ -72,7 +72,7 @@ class TeacherOnDutyTest(unittest.TestCase):
         if teacher in teachername_list:
             actual = 'alter-success'
         else:
-            actual = 'alter-success'
+            actual = 'alter-fail'
 
         self.assertEqual(actual, expect)
 
