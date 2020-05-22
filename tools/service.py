@@ -118,7 +118,6 @@ class Service:
         js_value = f'{jspath}.value="{time}"'  # js添加时间
         driver.execute_script(js_value)
 
-<<<<<<< HEAD
 # document.querySelector("#modifyCourseForm > div > div > div:nth-child(1) > input")
 
   # 输入新增排课开始时间
@@ -134,8 +133,6 @@ class Service:
 
 
 
-=======
->>>>>>> d60ac3b3974cb6a392c4fe251948d4ae6c2edf91
 
 
 if __name__ == '__main__':
